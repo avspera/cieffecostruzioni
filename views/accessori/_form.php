@@ -16,28 +16,38 @@ use yii\web\JsExpression;
         <?php $form = ActiveForm::begin(); ?>
         
         <div class="row">
-            <div class="col-md-6">
-                <?= $form->field($model, 'id_operaio')->widget(Select2::classname(), [
-                        'options' => ['multiple'=>false, 'placeholder' => 'Cerca per cognome...'],
-                        'pluginOptions' => [
-                            'value' => $model->id_operaio,
-                            'allowClear' => true,
-                            'minimumInputLength' => 3,
-                            'language' => [
-                                'errorLoading' => new JsExpression("function () { return 'Sto cercando...'; }"),
+            <?php 
+                if(!isset($update) && !$update){
+            ?>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'id_operaio')->widget(Select2::classname(), [
+                            'options' => ['multiple'=>false, 'placeholder' => 'Cerca per cognome...'],
+                            'pluginOptions' => [
+                                'value' => "",
+                                'allowClear' => true,
+                                'minimumInputLength' => 3,
+                                'language' => [
+                                    'errorLoading' => new JsExpression("function () { return 'Sto cercando...'; }"),
+                                ],
+                                'ajax' => [
+                                    'url' => Url::to(["operaio/search"]),
+                                    'dataType' => 'json',
+                                    'data' => new JsExpression('function(params) { return {q:params.term}; }')
+                                ],
+                                'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
+                                'templateResult' => new JsExpression('function(operaio) { return operaio.text; }'),
+                                'templateSelection' => new JsExpression('function (operaio) { return operaio.text; }'),
                             ],
-                            'ajax' => [
-                                'url' => Url::to(["operaio/search"]),
-                                'dataType' => 'json',
-                                'data' => new JsExpression('function(params) { return {q:params.term}; }')
-                            ],
-                            'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
-                            'templateResult' => new JsExpression('function(city) { return city.text; }'),
-                            'templateSelection' => new JsExpression('function (city) { return city.text; }'),
-                        ],
-                    ]);
-                ?>
-            </div>
+                        ]);
+                    ?>
+                </div>
+            <?php } else { ?>
+                <div class="col-md-6">
+                    <label>Operaio</label>
+                    <input readonly type="text" class="form-control" value="<?= $model->getOperaio() ?>">
+                </div>
+                
+            <?php } ?>
             <div class="col-md-6">
                 <?= $form->field($model, 'oggetto')->dropDownList(\yii\helpers\ArrayHelper::map(\app\models\CategoriaAccessori::find()->orderBy('nome')->all(), 'id', 'nome'), ['maxlength' => true, 'prompt' => 'Scegli']) ?>
             </div>
@@ -51,7 +61,8 @@ use yii\web\JsExpression;
                     'language' => 'it',
                     'dateFormat' => 'dd-MM-yyyy',
                     'options' => [
-                        'class' => 'form-control'
+                        'class' => 'form-control',
+                        "autocomplete" => "off"
                     ]
                 ])->label("Data di consegna") ?>
             </div>

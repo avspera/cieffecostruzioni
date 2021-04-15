@@ -64,6 +64,17 @@ class Accessori extends \yii\db\ActiveRecord
         return !empty($categoria) ? $categoria->nome : "";
     }
 
+    public function getCategorieAccessori(){
+        $categorie = CategoriaAccessori::find()->all();
+        $out = [];
+
+        foreach($categorie as $categoria){
+            $out[$categoria->id] = $categoria->nome;
+        }
+
+        return $out;
+    }
+
     public function convertDate($value){
         $tmp = explode("-", $value);
         return $tmp !== false ?$tmp[2]."-".$tmp[1]."-".$tmp[0] : "";

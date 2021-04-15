@@ -52,13 +52,23 @@ class Automezzo extends \yii\db\ActiveRecord
             'marca' => 'Marca',
             'modello' => 'Modello',
             'targa' => 'Targa',
-            'created' => 'Creato',
+            'created' => 'Inserito',
             'data_immatricolazione' => 'Immatricolazione',
             'data_ultimo_rinnovo_assicurazione' => 'Rinnovo Assicurazione',
             'data_scadenza_assicurazione' => 'Scadenza Assicurazione',
             'data_ultima_revisione' => 'Ultima Revisione',
             'data_prossima_revisione' => 'Prossima Revisione',
         ];
+    }
+
+    /**
+     * check if value is expiring
+     */
+    public function isExpiring($value){
+        $today      = date("Y-m-d H:i:s");
+        $maxRange   = date('Y-m-d H:i:s', strtotime($today . ' +10 day'));
+
+        return ($this->$value > $today) && ($this->$value <= $maxRange) ? true : false;
     }
 
     /**
@@ -83,4 +93,5 @@ class Automezzo extends \yii\db\ActiveRecord
         $tmp = explode("-", $value);
         return $tmp !== false ?$tmp[2]."-".$tmp[1]."-".$tmp[0] : "";
     }
+
 }

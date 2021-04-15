@@ -82,8 +82,12 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'data_scadenza_assicurazione',
                 'value' => function($model){
-                    return $model->formatDate($model->data_scadenza_assicurazione);
+                    $data =  $model->formatDate($model->data_scadenza_assicurazione);
+                    $isExpiring = $model->isExpiring("data_scadenza_assicurazione");
+                    $color = $isExpiring ? "red" : "black";
+                    return "<span style='color:{$color}'>{$data}</span>";
                 },
+                'format' => "raw",
                 'filterType' => GridView::FILTER_DATE,
                     'filterWidgetOptions' =>([
                         'language'=> "it",
@@ -128,8 +132,12 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'data_prossima_revisione',
                 'value' => function($model){
-                    return $model->formatDate($model->data_prossima_revisione);
+                    $data =  $model->formatDate($model->data_prossima_revisione);
+                    $isExpiring = $model->isExpiring("data_prossima_revisione");
+                    $color = $isExpiring ? "red" : "black";
+                    return "<span style='color:{$color}'>{$data}</span>";
                 },
+                'format' => "raw",
                 'filterType' => GridView::FILTER_DATE,
                     'filterWidgetOptions' =>([
                         'language'=> "it",

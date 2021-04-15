@@ -10,6 +10,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\AutomezzoSearch;
+use app\models\Automezzo;
 use app\models\Accessori;
 use app\models\Tagliando;
 use app\models\Operaio;
@@ -71,17 +72,39 @@ class SiteController extends Controller
 
         $searchModel = new AutomezzoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->sort->defaultOrder = ["created" => SORT_DESC];
 
-        $accessori = Accessori::find()->select(["id", "oggetto"])->groupBy(["id", "oggetto"])->count();
+        $today      = date("Y-m-d H:i:s");
+        $maxRange   = date('Y-m-d H:i:s', strtotime($today . ' +10 day'));
+        
+        $scadenzaAss = Automezzo::find()
+                    ->select(["id", "marca", "modello", "targa", "data_scadenza_assicurazione"])
+                    ->where([">", "data_scadenza_assicurazione", $today])
+                    ->andWhere(["<=", "data_scadenza_assicurazione", $maxRange])
+                    ->all();
+    
+        $scadenzaRevisione = Automezzo::find()
+                        ->select(["id", "marca", "modello", "targa", "data_prossima_revisione"])
+                        ->where([">", "data_prossima_revisione", $today])
+                        ->andWhere(["<=", "data_prossima_revisione", $maxRange])
+                        ->all();
+
+
+        $accessori      = Accessori::find()->select(["id", "oggetto"])->groupBy(["id", "oggetto"])->count();
         $tagliandiCount = Tagliando::find()->count();
-        $operaiCount = Operaio::find()->count();
 
+        $operaiCount    = Operaio::find()->count();
+        $operai         = Operaio::find()->orderBy(["created" => SORT_DESC])->all(); 
+        
         return $this->render('index', [
-                'automezzi' => $dataProvider, 
-                'automezzoSearch' => $searchModel,
-                'accessori' => $accessori,
+                'automezzi'         => $dataProvider, 
+                'automezzoSearch'   => $searchModel,
+                'accessori'         => $accessori,
                 'tagliandiCount'    => $tagliandiCount,
-                'operaiCount'       => $operaiCount
+                'operaiCount'       => $operaiCount,
+                'scadenzaAss'       => $scadenzaAss,
+                'scadenzaRevisione' => $scadenzaRevisione,
+                'operai'           => $operai
             ]
         );
     }
@@ -97,6 +120,7 @@ class SiteController extends Controller
             return $this->goHome();
         }
 
+        $this->layout = "main-login";
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();

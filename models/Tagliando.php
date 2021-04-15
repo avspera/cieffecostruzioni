@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property int $id_automezzo
  * @property string $created
+ * @property string $updated
  * @property string $note
  * @property string $allegati
  *
@@ -33,7 +34,7 @@ class Tagliando extends \yii\db\ActiveRecord
         return [
             [['id_automezzo', 'created'], 'required'],
             [['id_automezzo'], 'integer'],
-            [['note', 'allegati'], 'safe'],
+            [['note', 'allegati', 'updated'], 'safe'],
             [['note'], 'string'],
             [['allegati'], 'file', 'extensions' => ['jpg', 'png', 'jpeg', 'pdf'], 'skipOnEmpty' => true, 'maxSize' => 1024 * 1024 * 5, 'tooBig' => 'File troppo grande (Max 5MB)'],
             [['id_automezzo'], 'exist', 'skipOnError' => true, 'targetClass' => Automezzo::className(), 'targetAttribute' => ['id_automezzo' => 'id']],
@@ -48,7 +49,8 @@ class Tagliando extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'id_automezzo' => 'Automezzo',
-            'created' => 'Creato',
+            'created' => 'Inserito',
+            'updated' => 'Ultima modifica',
             'note' => 'Note',
             'allegati' => 'Allegati',
         ];

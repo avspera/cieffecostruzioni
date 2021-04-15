@@ -21,9 +21,11 @@ $fieldOptions2 = [
 
 <div class="login-box">
     <div class="login-logo">
+        <img style="width:80px; height:80px" src='<?= Yii::getAlias("@web")."/images/logo.jpeg"?> 'class="img-circle" alt="cieffecostruzioni"/> <br>
         <a href="#">cieffecostruzioni</a>
     </div>
-    <h3 style="text-align:center">Gestione automezzi</h3>
+    
+    <h4 style="text-align:center">Gestione automezzi</h4>
     <!-- /.login-logo -->
     <div class="login-box-body">
         <p class="login-box-msg">Inserisci le tue credenziali per accedere</p>

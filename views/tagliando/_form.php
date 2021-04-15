@@ -18,31 +18,46 @@ use kartik\file\FileInput;
         <?php $form = ActiveForm::begin(); ?>
 
         <div class="row">
-            <div class="col-md-4">
-                <?= $form->field($model, 'id_automezzo')->widget(Select2::classname(), [
-                        'options' => ['multiple'=>false, 'placeholder' => 'Cerca per targa...'],
-                        'pluginOptions' => [
-                            'value' => $model->id_automezzo,
-                            'allowClear' => true,
-                            'minimumInputLength' => 3,
-                            'language' => [
-                                'errorLoading' => new JsExpression("function () { return 'Sto cercando...'; }"),
+            <?php 
+                if(!isset($update) && !$update){
+            ?>
+                <div class="col-md-4">
+                    <?= $form->field($model, 'id_automezzo')->widget(Select2::classname(), [
+                            'options' => ['multiple'=>false, 'placeholder' => 'Cerca per targa...'],
+                            'pluginOptions' => [
+                                'value' => $model->id_automezzo,
+                                'allowClear' => true,
+                                'minimumInputLength' => 3,
+                                'language' => [
+                                    'errorLoading' => new JsExpression("function () { return 'Sto cercando...'; }"),
+                                ],
+                                'ajax' => [
+                                    'url' => Url::to(["automezzo/search"]),
+                                    'dataType' => 'json',
+                                    'data' => new JsExpression('function(params) { return {q:params.term}; }')
+                                ],
+                                'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
+                                'templateResult' => new JsExpression('function(city) { return city.text; }'),
+                                'templateSelection' => new JsExpression('function (city) { return city.text; }'),
                             ],
-                            'ajax' => [
-                                'url' => Url::to(["automezzo/search"]),
-                                'dataType' => 'json',
-                                'data' => new JsExpression('function(params) { return {q:params.term}; }')
-                            ],
-                            'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
-                            'templateResult' => new JsExpression('function(city) { return city.text; }'),
-                            'templateSelection' => new JsExpression('function (city) { return city.text; }'),
-                        ],
-                    ]);
-                ?>
-            </div>
+                        ]);
+                    ?>
+                </div>
+            <?php } else { ?>
+                <div class="col-md-4">
+                    <label>Automezzo</label>
+                    <input readonly type="text" class="form-control" value="<?= $model->automezzo->marca." ".$model->automezzo->modello." - ".$model->automezzo->targa ?>">
+                </div>
+                <div class="col-md-4">
+                    <label>Inserito</label>
+                    <input readonly type="text" class="form-control" value="<?= $model->formatDate($model->created) ?>">
+                </div>
+            <?php } ?>
         </div>
         
-        <?= $form->field($model, 'note')->textarea(['rows' => 6]) ?>
+        <div class="row">
+            <div class="col-md-12"><?= $form->field($model, 'note')->textarea(['rows' => 6]) ?></div>
+        </div>
 
         <?php 
             echo '<label class="control-label">Aggiungi allegati</label>';

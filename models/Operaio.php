@@ -12,6 +12,7 @@ use Yii;
  * @property string $cognome
  * @property string $codice_fiscale
  * @property string $ruolo
+ * @property string $created
  */
 class Operaio extends \yii\db\ActiveRecord
 {
@@ -32,7 +33,7 @@ class Operaio extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nome', 'cognome', 'codice_fiscale', 'ruolo'], 'required'],
+            [['nome', 'cognome', 'codice_fiscale', 'ruolo', 'created'], 'required'],
             [['nome', 'cognome', 'ruolo'], 'string', 'max' => 255],
             [['codice_fiscale'], 'string', 'max' => 16],
         ];
@@ -49,10 +50,19 @@ class Operaio extends \yii\db\ActiveRecord
             'cognome' => 'Cognome',
             'codice_fiscale' => 'Codice Fiscale',
             'ruolo' => 'Ruolo',
+            'created' => 'Inserito',
         ];
     }
 
     public function getRole(){
         return $this->roles[$this->ruolo];
+    }
+
+    public function formatDate($value, $showHour = false){
+        $format = "d/m/Y";
+        if($showHour)
+            $format = "d/m/Y H:i:s";
+
+        return !empty($value) ? date($format, strtotime($value)) : "";
     }
 }

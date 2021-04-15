@@ -37,7 +37,8 @@ class AccessoriController extends Controller
     {
         $searchModel = new AccessoriSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $dataProvider->sort->defaultOrder = ["created" => SORT_DESC];
+        
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -89,12 +90,17 @@ class AccessoriController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->created = $model->convertDate($model->created);
+            if($model->save())
+                return $this->redirect(['view', 'id' => $model->id]);
         }
+        
+        $operaio = $model->getOperaio();
 
         return $this->render('update', [
             'model' => $model,
+            'operaio' => $operaio
         ]);
     }
 

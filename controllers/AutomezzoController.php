@@ -57,7 +57,7 @@ class AutomezzoController extends Controller
     {
         $searchModel = new AutomezzoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $dataProvider->sort->defaultOrder = ["data_scadenza_assicurazione" => SORT_ASC];
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

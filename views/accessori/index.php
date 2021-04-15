@@ -23,11 +23,27 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'id',
-            'id_operaio',
-            'oggetto',
+            [
+               'attribute' => 'id_operaio',
+               'value' => function($model){
+                   return $model->getOperaio();
+               }
+            ],
+            [
+                'attribute' => 'oggetto',
+                'value' => function($model){
+                    return $model->getCategoriaAccessori();
+                },
+                'filter' => $searchModel->getCategorieAccessori()
+            ],
             'quantita',
             'taglia',
+            [
+                'attribute' => 'created',
+                'value' => function($model){
+                    return $model->formatDate($model->created);
+                },
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
         'emptyText' => "Nessun risultato trovato",

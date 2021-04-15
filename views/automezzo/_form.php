@@ -23,21 +23,24 @@ use yii\jui\DatePicker;
                 'language' => 'it',
                 'dateFormat' => 'dd-MM-yyyy',
                 'options' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    "autocomplete" => "off"
                 ]
         ]) ?></div>
         <div class="col-md-4"><?= $form->field($model, 'data_ultimo_rinnovo_assicurazione')->widget(\yii\jui\DatePicker::classname(), [
                 'language' => 'it',
                 'dateFormat' => 'dd-MM-yyyy',
                 'options' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    "autocomplete" => "off"
                 ]
         ]) ?></div>
         <div class="col-md-4"><?= $form->field($model, 'data_scadenza_assicurazione')->widget(\yii\jui\DatePicker::classname(), [
                 'language' => 'it',
                 'dateFormat' => 'dd-MM-yyyy',
                 'options' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    "autocomplete" => "off"
                 ]
         ]) ?></div>
         
@@ -48,14 +51,16 @@ use yii\jui\DatePicker;
                 'language' => 'it',
                 'dateFormat' => 'dd-MM-yyyy',
                 'options' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    "autocomplete" => "off"
                 ]
         ]) ?></div>
         <div class="col-md-6"><?= $form->field($model, 'data_prossima_revisione')->widget(\yii\jui\DatePicker::classname(), [
                 'language' => 'it',
                 'dateFormat' => 'dd-MM-yyyy',
                 'options' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    "autocomplete" => "off"
                 ]
         ]) ?></div>
 

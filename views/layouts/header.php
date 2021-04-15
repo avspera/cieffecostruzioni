@@ -1,5 +1,25 @@
 <?php
 use yii\helpers\Html;
+use yii\helpers\Url;
+use app\models\Automezzo;
+
+
+    $today      = date("Y-m-d H:i:s");
+    $maxRange   = date('Y-m-d H:i:s', strtotime($today . ' +10 day'));
+    
+    $scadenzaAss = Automezzo::find()
+                    ->select(["id", "marca", "modello", "targa", "data_scadenza_assicurazione"])
+                    ->where([">", "data_scadenza_assicurazione", $today])
+                    ->andWhere(["<=", "data_scadenza_assicurazione", $maxRange])
+                    ->all();
+    
+    $scadenzaRevisione = Automezzo::find()
+                        ->select(["id", "marca", "modello", "targa", "data_prossima_revisione"])
+                        ->where([">", "data_prossima_revisione", $today])
+                        ->andWhere(["<=", "data_prossima_revisione", $maxRange])
+                        ->all();
+
+    $count  = count($scadenzaAss)+count($scadenzaRevisione);
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -23,43 +43,44 @@ use yii\helpers\Html;
                 <li class="dropdown notifications-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-bell-o"></i>
-                        <span class="label label-warning">10</span>
+                        <span class="label label-warning"><?= $count ?></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="header">You have 10 notifications</li>
+                        <li class="header">Ci sono <?= $count ?> notifiche</li>
                         <li>
                             <!-- inner menu: contains the actual data -->
                             <ul class="menu">
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-warning text-yellow"></i> Very long description here that may
-                                        not fit into the page and may cause design problems
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-users text-red"></i> 5 new members joined
-                                    </a>
-                                </li>
 
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-shopping-cart text-green"></i> 25 sales made
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-user text-red"></i> You changed your username
-                                    </a>
-                                </li>
+                                <?php 
+                                    if(!empty($scadenzaAss)){
+                                        foreach($scadenzaAss as $automezzo){ ?>
+                                    <li>
+                                        <a href="<?= Url::to(["automezzo/view", "id" => $automezzo->id]) ?>">
+                                            <i class="fa fa-warning text-yellow"></i> <?= $automezzo->marca." ".$automezzo->modello ?> 
+                                            <strong><?= $automezzo->targa ?></strong> <br>
+                                            <small>Assicurazione in scadenza</small>
+                                            <small style="float:right;" class="bg-yellow"><?= $automezzo->formatDate($automezzo->data_scadenza_assicurazione) ?></small>
+                                        </a> 
+                                    </li>
+                                        <?php } ?>
+                                <?php } ?>
+
+                                <?php 
+                                    if(!empty($scadenzaRevisione)){
+                                        foreach($scadenzaRevisione as $automezzo){ ?>
+                                    <li>
+                                        <a href="<?= Url::to(["automezzo/view", "id" => $automezzo->id]) ?>">
+                                            <i class="fa fa-warning text-yellow"></i> <?= $automezzo->marca." ".$automezzo->modello ?> 
+                                            <strong><?= $automezzo->targa ?></strong>
+                                            <small>Revisione in scadenza</small>
+                                            <small style="float:right;" class="bg-yellow"><?= $automezzo->formatDate($automezzo->data_prossima_revisione) ?></small>
+                                        </a>
+                                    </li>
+                                        <?php } ?>
+                                <?php } ?>
                             </ul>
                         </li>
-                        <li class="footer"><a href="#">View all</a></li>
+                        <li class="footer"><a href="<?= Url::to(["automezzi/index"]) ?>">Vedi tutti</a></li>
                     </ul>
                 </li>
               
@@ -67,13 +88,15 @@ use yii\helpers\Html;
 
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
+                        <!-- <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="user-image" alt="cieffecostruzioni"/> -->
+                        <img src='<?= Yii::getAlias("@web")."/images/logo.jpeg"?> 'class="user-image" alt="cieffecostruzioni"/>
                         <span class="hidden-xs"><?= Yii::$app->user->identity->username ?></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <!-- User image -->
+                        <!-- cieffecostruzioni -->
                         <li class="user-header">
-                            <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
+                            <!-- <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle" alt="cieffecostruzioni"/> -->
+                            <img src='<?= Yii::getAlias("@web")."/images/logo.jpeg"?> 'class="img-circle" alt="cieffecostruzioni"/>
 
                             <p>
                                 <?= Yii::$app->user->identity->username ?>

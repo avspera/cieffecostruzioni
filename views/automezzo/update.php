@@ -12,10 +12,12 @@ $this->params['breadcrumbs'][] = 'Aggiorna';
 ?>
 <div class="automezzo-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+    <div class="panel panel-success">
+        <div class="panel-body">
+            <?= $this->render('_form', [
+                'model' => $model,
+            ]) ?>
+        </div>
+    </div>
 
 </div>

@@ -125,8 +125,22 @@ class TagliandoController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->updated = date("Y-m-d H:i:s");
+            
+            /**
+             * check wheter files are uploaded
+             */
+            if (!empty($_FILES)) {
+                $model = $this->manageUploadFiles($model);
+            }
+            else{
+                $model->allegati = "";
+            }
+            
+            if($model->save())
+                return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [

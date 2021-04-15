@@ -18,7 +18,7 @@ class AccessoriSearch extends Accessori
     {
         return [
             [['id', 'id_operaio', 'oggetto', 'quantita'], 'integer'],
-            [['taglia', 'quantita'], 'safe'],
+            [['taglia', 'quantita', 'created'], 'safe'],
         ];
     }
 
@@ -62,7 +62,8 @@ class AccessoriSearch extends Accessori
             'quantita' => $this->quantita,
             'taglia' => $this->taglia,
             'id_operaio' => $this->id_operaio,
-            'oggetto' => $this->oggetto
+            'oggetto' => $this->oggetto,
+            'created' => $this->created
         ]);
 
         return $dataProvider;

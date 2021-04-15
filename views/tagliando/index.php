@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use kartik\grid\GridView;
 use kartik\export\ExportMenu;
 
@@ -17,14 +18,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php 
         $gridColumns = [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
             [
                 'attribute' => 'id_automezzo',
                 'value' => function($model){
-                    $automezzo = $model->getAutomezzo();
-                    return !empty($automezzo) ? $automezzo->modello." - ".$automezzo->targa : "<p style='color=red'>Mezzo non trovato</p>";
-                }
+                    return !empty($model->automezzo) ? Html::a($model->automezzo->modello." - ".$model->automezzo->targa, Url::to(["automezzo/view", "id" => $model->automezzo->id])) : "<p style='color=red'>Mezzo non trovato</p>";
+                },
+                'format' => "raw"
             ],
             [
                 'attribute' => 'created',
