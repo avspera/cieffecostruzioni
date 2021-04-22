@@ -25,33 +25,38 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            [
-                'attribute' => 'id_operaio',
-                'value' => function($model){
-                    $url = Html::a($model->getOperaio(), Url::to(["operaio/view", "id" => $model->id_operaio]));
-                    return $model->getOperaio();
-                },
-                'format' => "raw"
-            ],
-            [
-                'attribute' => 'oggetto',
-                'value' => function($model){
-                    return $model->getCategoriaAccessori();
-                }
-            ],
-            'quantita',
-            'taglia',
-            [
-                'attribute' => "created",
-                'value' =>  function($model){
-                    return $model->formatDate($model->created);
-                }
-            ]
-        ],
-    ]) ?>
+    <div class="panel panel-default">
+        <div class="panel-body">
+          
+            <?= DetailView::widget([
+                'model' => $model,
+                'attributes' => [
+                    'id',
+                    [
+                        'attribute' => 'id_operaio',
+                        'value' => function($model){
+                            $url = Html::a($model->getOperaio(), Url::to(["operaio/view", "id" => $model->id_operaio]));
+                            return $model->getOperaio();
+                        },
+                        'format' => "raw"
+                    ],
+                    [
+                        'attribute' => 'oggetto',
+                        'value' => function($model){
+                            return $model->getCategoriaAccessori();
+                        }
+                    ],
+                    'quantita',
+                    'taglia',
+                    [
+                        'attribute' => "created",
+                        'value' =>  function($model){
+                            return $model->formatDate($model->created);
+                        }
+                    ]
+                ],
+            ]) ?>
+        </div>
+    </div>
 
 </div>

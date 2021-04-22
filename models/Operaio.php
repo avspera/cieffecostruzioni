@@ -11,6 +11,7 @@ use Yii;
  * @property string $nome
  * @property string $cognome
  * @property string $codice_fiscale
+ * @property string $documento_identita
  * @property string $ruolo
  * @property string $created
  */
@@ -35,7 +36,7 @@ class Operaio extends \yii\db\ActiveRecord
         return [
             [['nome', 'cognome', 'codice_fiscale', 'ruolo', 'created'], 'required'],
             [['nome', 'cognome', 'ruolo'], 'string', 'max' => 255],
-            [['codice_fiscale'], 'string', 'max' => 16],
+            [['documento_identita', 'codice_fiscale'], 'file', 'extensions' => ['jpg', 'png', 'jpeg', 'pdf'], 'skipOnEmpty' => true, 'maxSize' => 1024 * 1024 * 5, 'tooBig' => 'File troppo grande (Max 5MB)'],
         ];
     }
 

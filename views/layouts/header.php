@@ -70,7 +70,7 @@ use app\models\Automezzo;
                                     <li>
                                         <a href="<?= Url::to(["automezzo/view", "id" => $automezzo->id]) ?>">
                                             <i class="fa fa-warning text-yellow"></i> <?= $automezzo->marca." ".$automezzo->modello ?> 
-                                            <strong><?= $automezzo->targa ?></strong>
+                                            <strong><?= $automezzo->targa ?></strong> <br>
                                             <small>Revisione in scadenza</small>
                                             <small style="float:right;" class="bg-yellow"><?= $automezzo->formatDate($automezzo->data_prossima_revisione) ?></small>
                                         </a>

@@ -17,37 +17,40 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            [
-               'attribute' => 'id_operaio',
-               'value' => function($model){
-                   return $model->getOperaio();
-               }
-            ],
-            [
-                'attribute' => 'oggetto',
-                'value' => function($model){
-                    return $model->getCategoriaAccessori();
-                },
-                'filter' => $searchModel->getCategorieAccessori()
-            ],
-            'quantita',
-            'taglia',
-            [
-                'attribute' => 'created',
-                'value' => function($model){
-                    return $model->formatDate($model->created);
-                },
-            ],
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-        'emptyText' => "Nessun risultato trovato",
-    ]); ?>
+    <div class="panel panel-default" style="margin-top:10px">
+        <div class="panel-body">
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                'filterModel' => $searchModel,
+                'columns' => [
+                    ['class' => 'yii\grid\ActionColumn'],
+                    ['class' => 'yii\grid\SerialColumn'],
+                    [
+                    'attribute' => 'id_operaio',
+                    'value' => function($model){
+                        return $model->getOperaio();
+                    }
+                    ],
+                    [
+                        'attribute' => 'oggetto',
+                        'value' => function($model){
+                            return $model->getCategoriaAccessori();
+                        },
+                        'filter' => $searchModel->getCategorieAccessori()
+                    ],
+                    'quantita',
+                    'taglia',
+                    [
+                        'attribute' => 'created',
+                        'value' => function($model){
+                            return $model->formatDate($model->created);
+                        },
+                    ]
+                ],
+                'emptyText' => "Nessun risultato trovato",
+            ]); ?>
+        </div>
+    </div>
 
 
 </div>

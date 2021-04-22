@@ -17,6 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
     <?php 
         $gridColumns = [
+            ['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\SerialColumn'],
             [
                 'attribute' => 'id_automezzo',
@@ -49,8 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ),
             ],
             'note:ntext',
-            'allegati:ntext',
-            ['class' => 'yii\grid\ActionColumn'],
+            'allegati:ntext'
         ];
     ?>
     <div class="row">

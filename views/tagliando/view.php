@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="panel panel-default">
 
         <div class="panel-heading">
-                <?= Html::a('Aggiorna', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+         <?= Html::a('Modifica', ['update', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
                 <?= Html::a('Cancella', ['delete', 'id' => $model->id], [
                     'class' => 'btn btn-danger',
                     'data' => [

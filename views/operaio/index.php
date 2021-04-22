@@ -24,6 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
                 'columns' => [
+                    ['class' => 'yii\grid\ActionColumn'],
                     ['class' => 'yii\grid\SerialColumn'],
                     'nome',
                     'cognome',
@@ -34,8 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             return $model->getRole();
                         },
                         'filter' => $searchModel->roles
-                    ],
-                    ['class' => 'yii\grid\ActionColumn'],
+                    ]
                 ],
                 'emptyText' => "Nessun risultato trovato"
             ]); ?>

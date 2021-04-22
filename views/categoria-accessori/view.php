@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="categoria-accessori-view">
 
     <p>
-        <?= Html::a('Aggiorna', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Modifica', ['update', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
         <?= Html::a('Cancella', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -22,14 +22,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Vedi tutti', ['index'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Aggiungi nuovo', ['create'], ['class' => 'btn btn-success']) ?>
+
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'nome',
-        ],
-    ]) ?>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <?= DetailView::widget([
+                'model' => $model,
+                'attributes' => [
+                    'id',
+                    'nome',
+                ],
+            ]) ?>
+        </div>
+    </div>
 
 </div>
