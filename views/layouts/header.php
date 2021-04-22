@@ -3,7 +3,6 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use app\models\Automezzo;
 
-
     $today      = date("Y-m-d H:i:s");
     $maxRange   = date('Y-m-d H:i:s', strtotime($today . ' +10 day'));
     

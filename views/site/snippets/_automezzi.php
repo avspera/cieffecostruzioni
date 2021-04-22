@@ -1,6 +1,7 @@
 <?php 
     use yii\helpers\Html;
     use yii\helpers\Url;
+    use app\models\Tagliando;
 ?>
 <div class="box box-primary">
     <div class="box-header with-border">
@@ -16,6 +17,7 @@
             <?php 
                 if(!empty($automezzi)){
                     foreach($automezzi as $automezzo){
+                        $tagliando = Tagliando::find()->select("created")->where(["id_automezzo" => $automezzo->id])->orderBy(["created" => SORT_DESC])->one();
             ?>
                         <li class="item">
                             <div class="product-img">
@@ -25,6 +27,7 @@
                                 <?= Html::a($automezzo->marca." ".$automezzo->modello, Url::to(["automezzo/view", "id" => $automezzo->id]), ["class" => "product-title"]) ?>
                                 <span class="label label-warning pull-right"><?= $automezzo->formatDate($automezzo->$date)?></span></a>
                                 <span class="product-description"><?= $automezzo->targa ?></span>
+                                Ultimo tagliando: <span style="color:<?= $tagliando ? "green" : "red" ?>" ><?= $tagliando ? $automezzo->formatDate($tagliando->created) : "Mai eseguito" ?></span>
                             </div>
                         </li>
                     <?php } ?>

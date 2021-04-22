@@ -7,13 +7,13 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\OperaioSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Operai';
+$this->title = 'Dipendenti';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="operaio-index">
 
     <p>
-        <?= Html::a('Aggiungi Operaio', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Aggiungi Dipendente', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

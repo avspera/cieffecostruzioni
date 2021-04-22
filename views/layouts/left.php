@@ -1,3 +1,9 @@
+<?php 
+
+use yii\helpers\Url;
+use app\models\AutomezzoSearch;
+
+?>
 <aside class="main-sidebar">
 
     <section class="sidebar">
@@ -16,9 +22,9 @@
         </div>
 
         <!-- search form -->
-        <form action="#" method="get" class="sidebar-form">
+        <form action="<?= Url::to(["automezzo/index"]) ?>" class="sidebar-form">
             <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="Cerca automezzo per targa..."/>
+                <input type="text" name="AutomezzoSearch[targa]" class="form-control" placeholder="Cerca automezzo per targa..."/>
               <span class="input-group-btn">
                 <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
@@ -61,7 +67,7 @@
                         ],
                     ],
                     [
-                        'label' => 'Operai',
+                        'label' => 'Dipendenti',
                         'icon' => 'users',
                         'url' => '#',
                         'items' => [

@@ -33,9 +33,12 @@ class AccessoriController extends Controller
      * Lists all Accessori models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($oggetto = "")
     {
         $searchModel = new AccessoriSearch();
+        if(!empty($oggetto))
+            $searchModel->oggetto = $oggetto;
+            
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->sort->defaultOrder = ["created" => SORT_DESC];
         

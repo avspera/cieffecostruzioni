@@ -12,6 +12,7 @@ use yii\helpers\Html;
     <!DOCTYPE html>
     <html lang="<?= Yii::$app->language ?>">
     <head>
+        <script src="<?= Yii::getAlias("@web") ?>/js/jquery.min.js"></script>
         <meta charset="<?= Yii::$app->charset ?>"/>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <?= Html::csrfMetaTags() ?>
@@ -42,5 +43,6 @@ use yii\helpers\Html;
 
     <?php $this->endBody() ?>
     </body>
+
     </html>
     <?php $this->endPage() ?>

@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
 use yii\grid\GridView;
 /* @var $this yii\web\View */
@@ -49,10 +50,38 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterModel' => $accessoriModel,
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
-                    'oggetto',
+                    [
+                       'attribute' => 'oggetto',
+                       'value' => function($model){
+                           return $model->getCategoriaAccessori();
+                       }
+                    ],
                     'quantita',
                     'taglia',
-                    ['class' => 'yii\grid\ActionColumn'],
+                    [
+                        'class' => 'yii\grid\ActionColumn', 'template' => '{view} {update} {delete}',
+                        'buttons' => [
+                            'view' => function($url, $model, $key) {
+                                $url = Url::to(["accessori/view", 'id' => $model->id]);
+                                $btn = Html::a("<i class='fa fa-eye'></i>", $url);
+                                return $btn;
+                            },
+                            'update' => function($url, $model, $key) {
+                                $url = Url::to(["accessori/update", 'id' => $model->id]);
+                                $btn = Html::a("<i class='fa fa-pencil'></i>", $url);
+                                return $btn;
+                            },
+                            'delete' => function($url, $model) {
+                                return Html::a('<i class="fa fa-trash"></i>', ['accessori/delete', 'id' => $model->id], [
+                                    'class' => '',
+                                    'data' => [
+                                        'confirm' => 'Sei sicuro di voler eliminare questo catalogo? Verranno cancellati anche i prodotti',
+                                        'method' => 'post',
+                                    ],
+                                ]);
+                            }
+                        ],
+                    ], 
                 ],
                 'emptyText' => "Nessun risultato trovato"
             ]); ?>

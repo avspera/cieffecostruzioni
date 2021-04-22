@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php 
         $gridColumns = [
+            ['class' => 'yii\grid\ActionColumn'],
             [
                 'class' => 'yii\grid\SerialColumn',
             ],
@@ -156,7 +157,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'hAlign' => 'center', 
                 'vAlign' => 'middle',
             ],
-            ['class' => 'yii\grid\ActionColumn'],
         ];
     
     ?>

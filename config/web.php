@@ -5,8 +5,10 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
+    'name' => 'Gestione Automezzi',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'language' => "it_IT",
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',

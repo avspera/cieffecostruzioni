@@ -27,7 +27,8 @@ class CategoriaAccessori extends \yii\db\ActiveRecord
     {
         return [
             [['nome'], 'required'],
-            [['nome'], 'string', 'max' => 255],
+            [['color'], 'safe'],
+            [['nome', 'color'], 'string', 'max' => 255],
         ];
     }
 

@@ -20,11 +20,15 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
+        'css/custom.css',
         'css/site.css',
     ];
     public $js = [
+        'js/jquery.min.js',
+        'js/pieChart.js'
     ];
     public $depends = [
+        'dmstr\adminlte\web\AdminLteAsset',
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
     ];

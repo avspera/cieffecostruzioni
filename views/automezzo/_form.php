@@ -15,7 +15,7 @@ use yii\jui\DatePicker;
     <div class="row">
         <div class="col-md-4"><?= $form->field($model, 'marca')->textInput(['maxlength' => true]) ?></div>
         <div class="col-md-4"><?= $form->field($model, 'modello')->textInput(['maxlength' => true]) ?></div>
-        <div class="col-md-4"><?= $form->field($model, 'targa')->textInput(['maxlength' => true]) ?></div>
+        <div class="col-md-4"><?= $form->field($model, 'targa')->textInput(['maxlength' => true, 'onblur' => "javascritp:checkTarga()"]) ?></div>
     </div>
 
     <div class="row">
@@ -72,3 +72,36 @@ use yii\jui\DatePicker;
 
     <?php ActiveForm::end(); ?>
 </div>
+
+<script>
+    function checkTarga(){
+        let targa = $("#automezzo-targa").val();
+        let targaContainer = $(".field-automezzo-targa");
+        if(targa.length > 3){
+            $.ajax({
+                dataType: 'json',
+                url: "check-targa",
+                method: 'post',
+                data: {
+                    targa: targa
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                },
+                success: function (data) {
+                    if(data.status == "200"){
+                        targaContainer.removeClass("has-success");
+                        targaContainer.addClass("has-error");
+                        targaContainer.find("div.help-block").append("Questa targa è già presente nel sistema");
+                        $("button[type=submit]").prop("disabled",true);
+                    }else{
+                        targaContainer.removeClass("has-error");
+                        targaContainer.addClass("has-success");
+                        targaContainer.find("div.help-block").html("");
+                        $("button[type=submit]").prop("disabled",false);
+                    }
+                }
+            });
+        }
+    }
+</script>

@@ -17,7 +17,7 @@ use Yii;
 class Operaio extends \yii\db\ActiveRecord
 {
 
-    public $roles  = [0 => "Autista", 1 => "Amministrazione"];
+    public $roles  = [0 => "Autista", 1 => "Dirigente", 2 => "Geometra", 3 => "Ingegnere", 4 => "Operaio"];
 
     /**
      * {@inheritdoc}

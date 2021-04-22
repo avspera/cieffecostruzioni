@@ -1,3 +1,6 @@
+<?php
+    use yii\helpers\Url;
+?>
 <div class="box box-default">
     <div class="box-header with-border">
     <h3 class="box-title"><?= $title ?></h3>
@@ -20,12 +23,11 @@
         <!-- /.col -->
         <div class="col-md-4">
         <ul class="chart-legend clearfix">
-            <li><i class="fa fa-circle-o text-red"></i> Chrome</li>
-            <li><i class="fa fa-circle-o text-green"></i> IE</li>
-            <li><i class="fa fa-circle-o text-yellow"></i> FireFox</li>
-            <li><i class="fa fa-circle-o text-aqua"></i> Safari</li>
-            <li><i class="fa fa-circle-o text-light-blue"></i> Opera</li>
-            <li><i class="fa fa-circle-o text-gray"></i> Navigator</li>
+            <?php 
+                foreach($categorieAccessori as $categoria){
+            ?>
+                <li><i class="fa fa-circle-o <?= $categoria->color ?>"></i> <?= $categoria->nome ?></li>
+            <?php } ?>
         </ul>
         </div>
         <!-- /.col -->
@@ -35,12 +37,14 @@
     <!-- /.box-body -->
     <div class="box-footer no-padding">
     <ul class="nav nav-pills nav-stacked">
-        <li><a href="#">United States of America
-        <span class="pull-right text-red"><i class="fa fa-angle-down"></i> 12%</span></a></li>
-        <li><a href="#">India <span class="pull-right text-green"><i class="fa fa-angle-up"></i> 4%</span></a>
-        </li>
-        <li><a href="#">China
-        <span class="pull-right text-yellow"><i class="fa fa-angle-left"></i> 0%</span></a></li>
+        <?php 
+            foreach($categorieAccessori as $categoria){
+        ?>
+            <li><a href="<?= Url::to(["accessori/index", "oggetto" => $categoria->id]) ?>"><?= $categoria->nome ?>
+                <span class="pull-right <?= $categoria->color ?>">12%</span></a>
+            </li>
+        <?php } ?>
+        
     </ul>
     </div>
     <!-- /.footer -->

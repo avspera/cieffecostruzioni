@@ -40,6 +40,7 @@ class AutomezzoController extends Controller
                             'delete',
                             'search',
                             'generate-pdf',
+                            'check-targa'
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -64,6 +65,18 @@ class AutomezzoController extends Controller
         ]);
     }
 
+    public function actionCheckTarga(){
+        if(Yii::$app->request->isAjax){
+            $data = Yii::$app->request->post();
+            $automezzo = Automezzo::find()->where(["targa" => $data["targa"]])->exists();
+            $out = [
+                "status" => $automezzo ?  "200" : "100"
+            ];
+            \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            return $out;
+        }
+    }
+    
     /**
      * used in sessione/index search form
      */

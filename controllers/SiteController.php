@@ -12,6 +12,7 @@ use app\models\ContactForm;
 use app\models\AutomezzoSearch;
 use app\models\Automezzo;
 use app\models\Accessori;
+use app\models\CategoriaAccessori;
 use app\models\Tagliando;
 use app\models\Operaio;
 
@@ -91,6 +92,8 @@ class SiteController extends Controller
 
 
         $accessori      = Accessori::find()->select(["id", "oggetto"])->groupBy(["id", "oggetto"])->count();
+        $categorieAccessori = CategoriaAccessori::find()->orderBy(["nome" => SORT_ASC])->all();
+        
         $tagliandiCount = Tagliando::find()->count();
 
         $operaiCount    = Operaio::find()->count();
@@ -100,6 +103,7 @@ class SiteController extends Controller
                 'automezzi'         => $dataProvider, 
                 'automezzoSearch'   => $searchModel,
                 'accessori'         => $accessori,
+                'categorieAccessori' => $categorieAccessori,
                 'tagliandiCount'    => $tagliandiCount,
                 'operaiCount'       => $operaiCount,
                 'scadenzaAss'       => $scadenzaAss,

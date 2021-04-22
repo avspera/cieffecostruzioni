@@ -17,14 +17,16 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="automezzo-view">
 
     <p>
-        <?= Html::a('Aggiorna', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Cancella', ['delete', 'id' => $model->id], [
+        <?= Html::a('Modifica', ['update', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
+        <?= Html::a('Elimina', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Sei sicuro di voler cancellare questo elemento?',
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Torna indietro', ['index'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Aggiungi nuovo', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= DetailView::widget([

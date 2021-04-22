@@ -6,6 +6,7 @@ use yii\helpers\Html;
 /* @var $content string */
 
 dmstr\web\AdminLteAsset::register($this);
+$imgUrl = Yii::getAlias("@web")."/images/cf-costruzioni-0004.jpg";
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -14,13 +15,25 @@ dmstr\web\AdminLteAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
+    <style>
+        body {
+            height: 100%;
+            background-image: url("<?= $imgUrl ?>");
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+
     <title><?= Html::encode($this->title) ?></title>
+    
     <?php $this->head() ?>
 </head>
-<body class="login-page">
+<body class="">
 
 <?php $this->beginBody() ?>
-
+    
     <?= $content ?>
 
 <?php $this->endBody() ?>

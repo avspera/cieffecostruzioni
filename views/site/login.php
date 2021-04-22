@@ -6,7 +6,7 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \common\models\LoginForm */
 
-$this->title = 'Sign In';
+$this->title = 'Gestione Trasporti::cieffecostruzionisrl';
 
 $fieldOptions1 = [
     'options' => ['class' => 'form-group has-feedback'],
@@ -22,10 +22,10 @@ $fieldOptions2 = [
 <div class="login-box">
     <div class="login-logo">
         <img style="width:80px; height:80px" src='<?= Yii::getAlias("@web")."/images/logo.jpeg"?> 'class="img-circle" alt="cieffecostruzioni"/> <br>
-        <a href="#">cieffecostruzioni</a>
+        <a style="color:white; font-size:40px!important" href="#">Cieffe Costruzioni</a>
     </div>
     
-    <h4 style="text-align:center">Gestione automezzi</h4>
+    <h4 style="text-align:center; color:white;">Gestione automezzi</h4>
     <!-- /.login-logo -->
     <div class="login-box-body">
         <p class="login-box-msg">Inserisci le tue credenziali per accedere</p>
