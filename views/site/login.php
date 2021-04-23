@@ -66,7 +66,7 @@ $fieldOptions2 = [
         <!-- /.social-auth-links -->
 
         <a href="#">Password dimenticata?</a><br>
-        <a href="register.html" class="text-center">Registra un nuovo utente</a>
+        <small>Chiedi all'admin</small>
 
     </div>
     <!-- /.login-box-body -->

@@ -3,7 +3,7 @@
 namespace app\models;
 
 use Yii;
-
+use yii\helpers\Url;
 /**
  * This is the model class for table "operaio".
  *
@@ -36,7 +36,15 @@ class Operaio extends \yii\db\ActiveRecord
         return [
             [['nome', 'cognome', 'codice_fiscale', 'ruolo', 'created'], 'required'],
             [['nome', 'cognome', 'ruolo'], 'string', 'max' => 255],
-            [['documento_identita', 'codice_fiscale'], 'file', 'extensions' => ['jpg', 'png', 'jpeg', 'pdf'], 'skipOnEmpty' => true, 'maxSize' => 1024 * 1024 * 5, 'tooBig' => 'File troppo grande (Max 5MB)'],
+            [
+                ['documento_identita', 'codice_fiscale'], 
+                    'file', 
+                    'extensions' => ['jpg', 'png', 'jpeg', 'pdf'],
+                    'skipOnEmpty' => true, 
+                    'maxSize' => 1024 * 1024 * 5, 
+                    'tooBig' => 'File troppo grande (Max 5MB)',
+                    'maxFiles' => 10
+                ],
         ];
     }
 
@@ -49,7 +57,8 @@ class Operaio extends \yii\db\ActiveRecord
             'id' => 'ID',
             'nome' => 'Nome',
             'cognome' => 'Cognome',
-            'codice_fiscale' => 'Codice Fiscale',
+            'codice_fiscale' => 'Cod. Fisc.',
+            'documento_identita' => 'Doc. Identità',
             'ruolo' => 'Ruolo',
             'created' => 'Inserito',
         ];
@@ -66,4 +75,16 @@ class Operaio extends \yii\db\ActiveRecord
 
         return !empty($value) ? date($format, strtotime($value)) : "";
     }
+
+    public function getAttachmentUrl($attribute) {
+        $files = json_decode($this->$attribute);
+        $out = [];
+        if(!empty($files)){
+            foreach($files as $key => $value){
+                $out[$key] = Url::base() ."/".$value;
+            }
+        }
+        return $out;
+    }
+
 }

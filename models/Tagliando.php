@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "tagliando".
@@ -49,7 +50,7 @@ class Tagliando extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'id_automezzo' => 'Automezzo',
-            'created' => 'Inserito',
+            'created' => 'Data',
             'updated' => 'Ultima modifica',
             'note' => 'Note',
             'allegati' => 'Allegati',
@@ -77,5 +78,16 @@ class Tagliando extends \yii\db\ActiveRecord
         $format = "H:i";
 
         return !empty($value) ? date($format, strtotime($value)) : "";
+    }
+
+    public function getAttachmentUrl($attribute) {
+        $files = json_decode($this->$attribute);
+        $out = [];
+        if(!empty($files)){
+            foreach($files as $key => $value){
+                $out[$key] = Url::base() ."/".$value;
+            }
+        }
+        return $out;
     }
 }

@@ -75,7 +75,16 @@ use app\models\AutomezzoSearch;
                             ['label' => 'Vedi tutti', 'icon' => 'list', 'url' => ['/operaio/index'],],
                         ],
                     ],
-                    ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']]               
+                    // [
+                    //     'label' => 'Utenti',
+                    //     'icon' => 'user-plus',
+                    //     'url' => '#',
+                    //     'items' => [
+                    //         ['label' => 'Nuovo', 'icon' => 'plus', 'url' => ['/user/create'],],
+                    //         ['label' => 'Vedi tutti', 'icon' => 'list', 'url' => ['/user/index'],],
+                    //     ],
+                    //     'visible' => Yii::$app->user->identity->username == "admin"
+                    // ],
                 ] 
             ]
         ) ?>

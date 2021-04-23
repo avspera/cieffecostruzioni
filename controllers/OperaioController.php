@@ -10,6 +10,9 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\extensions\FKUploadUtils; 
+use yii\helpers\FileHelper;
+use yii\web\UploadedFile;
 
 /**
  * OperaioController implements the CRUD actions for Operaio model.
@@ -94,14 +97,57 @@ class OperaioController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->created = date("Y-m-d H:i:s");
+            
+            /**
+             * check wheter files are uploaded
+             */
+            $files  = UploadedFile::getInstances($model, "codice_fiscale");
+            if(!empty($files)){
+                $model= $this->manageUploadFiles($model, $files, "codice_fiscale");
+            }
+
+            $files  = UploadedFile::getInstances($model, "documento_identita");
+            if(!empty($files)){
+                $model= $this->manageUploadFiles($model, $files, "documento_identita");
+            }
+            /**
+             * end of file check
+             */
+             
             if($model->save())
                 return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        
         return $this->render('create', [
             'model' => $model,
         ]);
     }
+
+    /**
+     * check each uploaded media in form.
+     * if !empty, upload to server
+     * path is: /uploads/automezzo_id/*
+     */
+    protected function manageUploadFiles($model, $files, $field) {
+        
+        $uploader   = new FKUploadUtils();
+        
+        $path       = Yii::getAlias('@webroot')."/uploads/dipendenti/";
+        
+        $dirCreated = FileHelper::createDirectory($path);
+        
+        $inputFiles = [];
+        foreach($files as $doc)
+        {
+            $filename           = $uploader->generateAndSaveFile($doc, $path);
+            $inputFiles[]       = "uploads/dipendenti/".$filename;
+        }
+        
+        $model->$field = json_encode($inputFiles);
+        
+        return $model;
+    }//end of function
 
     /**
      * Updates an existing Operaio model.
@@ -114,8 +160,23 @@ class OperaioController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+
+             /**
+             * check wheter files are uploaded
+             */
+            $files  = UploadedFile::getInstances($model, "codice_fiscale");
+            if(!empty($files)){
+                $model= $this->manageUploadFiles($model, $files, "codice_fiscale");
+            }
+
+            $files  = UploadedFile::getInstances($model, "documento_identita");
+            if(!empty($files)){
+                $model= $this->manageUploadFiles($model, $files, "documento_identita");
+            }
+
+            if($model->save())
+                return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [

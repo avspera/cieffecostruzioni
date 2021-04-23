@@ -17,14 +17,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="panel panel-default">
 
         <div class="panel-heading">
-         <?= Html::a('Modifica', ['update', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
-                <?= Html::a('Cancella', ['delete', 'id' => $model->id], [
-                    'class' => 'btn btn-danger',
-                    'data' => [
-                        'confirm' => 'Sei sicuro di voler cancellare quesot elemento?',
-                        'method' => 'post',
-                    ],
-                ]) ?>
+            <?= Html::a('Modifica', ['update', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
+            <?= Html::a('Cancella', ['delete', 'id' => $model->id], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => 'Sei sicuro di voler cancellare quesot elemento?',
+                    'method' => 'post',
+                ],
+            ]) ?>
+            <?= Html::a('Vedi tutti', ['index'], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('Aggingi nuovo', ['create'], ['class' => 'btn btn-success']) ?>
         </div>
         <div class="panel-body">
             <?= DetailView::widget([
@@ -45,7 +47,23 @@ $this->params['breadcrumbs'][] = $this->title;
                         } 
                     ],
                     'note:ntext',
-                    'allegati:ntext',
+                    [
+                        'attribute' => 'allegati',
+                        'value' => function($model){
+                            $files = $model->getAttachmentUrl('allegati', true);
+                            $html = "";
+                            foreach($files as $key => $value){
+                                if(strpos($value, ".pdf")){
+                                    $html .= Html::a("<i class='fa fa-2x fa-file-pdf'></i> ", $value, ['target' => '_blank']);
+                                }
+                                else{
+                                    $html .= "<a href='{$value}' target='_blank'>".Html::img($value, ['width' => '100px'])."</a>";
+                                }
+                            }
+                            return $html;
+                        },
+                        'format' => "raw"
+                    ]
                 ],
             ]) ?>
         </div>

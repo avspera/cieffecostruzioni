@@ -1,6 +1,7 @@
 <?php
 use yii\widgets\Breadcrumbs;
 use dmstr\widgets\Alert;
+use yii\helpers\Url;
 
 ?>
 <div class="content-wrapper">
@@ -39,7 +40,7 @@ use dmstr\widgets\Alert;
     <div class="pull-right hidden-xs">
         <b>Version</b> 1.0
     </div>
-    <strong>Copyright &copy; <?= date("Y") ?> <a href="#">Plfware</a>.</strong> All rights reserved. | Developed by <strong>DevHopes</strong>
+    <strong>Copyright &copy; <?= date("Y") ?> <a target="_blank" href="<?= Url::to("https://www.plfware.it/") ?>">Plfware</a>.</strong> All rights reserved. | Developed by <a href='mailto: speradeveloper@gmail.com'><strong>DevHopes</strong></a>
 </footer>
 
 <!-- Control Sidebar -->

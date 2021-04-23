@@ -35,7 +35,41 @@ $this->params['breadcrumbs'][] = $this->title;
                 'id',
                 'nome',
                 'cognome',
-                'codice_fiscale',
+                [
+                    'attribute' => 'codice_fiscale',
+                    'value' => function($model){
+                        $files = $model->getAttachmentUrl('codice_fiscale', true);
+                        $html = "";
+                        foreach($files as $key => $value){
+                            if(strpos($value, ".pdf")){
+                                $html .= Html::a("<i class='fa fa-2x fa-file-pdf'></i> ", $value, ['target' => '_blank']);
+                            }
+                            else{
+                                $html .= "<a href='{$value}' target='_blank'>".Html::img($value, ['width' => '100px'])."</a>";
+                            }
+                        }
+                        return $html;
+                    },
+                    'format' => "raw"
+                ],
+                [
+                    'attribute' => 'documento_identita',
+                    'value' => function($model){
+                        $files = $model->getAttachmentUrl('documento_identita', true);
+                        $html = "";
+                        foreach($files as $key => $value){
+                            if(strpos($value, ".pdf")){
+                                $icon = "fa-file-pdf";
+                                $html .= Html::a("<i class='fa fa-2x {$icon}'></i> ", $value, ['target' => '_blank']);
+                            }
+                            else{
+                                $html .= "<a href='{$value}' target='_blank'>".Html::img($value, ['width' => '100px'])."</a>";
+                            }
+                        }
+                        return $html;
+                    },
+                    'format' => "raw"
+                ],
                 [
                     'attribute' => 'ruolo',
                     'value' => function($model){

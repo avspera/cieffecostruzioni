@@ -130,59 +130,64 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php 
                             foreach($tagliandi->getModels() as $tagliando){
                         ?>
-                        <li class="time-label">
-                            <span class="bg-red"><?= $tagliando->formatDate($tagliando->created) ?></span>
-                        </li>
-                        <!-- /.timeline-label -->
-                        <!-- timeline item -->
-                        <li>
-                        <i class="fa fa-comments bg-yellow"></i>
-
-                        <div class="timeline-item">
-                            <span class="time"><i class="fa fa-clock-o"></i> <?= $tagliando->formatDate($tagliando->created) ?></span>
-
-                            <h3 class="timeline-header"><a href="#">Tagliando</a></h3>
-
-                            <div class="timeline-body"><?= $tagliando->note ?></div>
-                            <div class="timeline-footer">
-                                <?= Html::a("Vedi i dettagli", Url::to(["tagliando/view", "id" => $tagliando->id]), ['class' => "btn btn-primary btn-xs"]) ?>
-                            </div>
-                        </div>
-                        </li>
-                        <!-- END timeline item -->
-                        <!-- timeline item -->
-                        <li>
-                        <i class="fa fa-user bg-aqua"></i>
-
-                        <div class="timeline-item">
-                            <span class="time"><i class="fa fa-clock-o"></i> <?= $tagliando->getDateHour($tagliando->created) ?></span>
-                            
-                            <h3 class="timeline-header no-border"><a href="#"><?= Yii::$app->user->identity->username ?></a> ha inserito il tagliando nel sistema</h3>
-                        </div>
-                        </li>
-                        <!-- END timeline item -->
-                        <!-- timeline item -->
-                        <?php if(!empty($tagliando->allegati)){ ?>
-                            <li>
-                            <i class="fa fa-camera bg-purple"></i>
-
-                            <div class="timeline-item">
-                                <span class="time"><i class="fa fa-clock-o"></i> <?= $tagliando->formatDate($tagliando->created) ?></span>
-
-                                <h3 class="timeline-header"><a href="#"><?= Yii::$app->user->identity->username ?></a> ha caricato nuovi files</h3>
-                                <div class="timeline-body">
-                                    <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                    <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                    <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                    <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                </div>
-                            </div>
+                            <li class="time-label">
+                                <span class="bg-red"><?= $tagliando->formatDate($tagliando->created) ?></span>
                             </li>
-                        <?php } ?>
-                        <!-- END timeline item -->
-                        <?php } ?>
+                        
+                            <li>
+                                <i class="fa fa-user bg-aqua"></i>
 
-                        <!-- END timeline item -->
+                                <div class="timeline-item">
+                                    <span class="time"><i class="fa fa-clock-o"></i> <?= $tagliando->getDateHour($tagliando->created) ?></span>
+                                    
+                                    <h3 class="timeline-header no-border"><a href="#"><?= Yii::$app->user->identity->username ?></a> ha inserito il tagliando nel sistema</h3>
+                                </div>
+                            </li>
+
+                            <li>
+                                <i class="fa fa-comments bg-yellow"></i>
+
+                                <div class="timeline-item">
+                                    <span class="time"><i class="fa fa-clock-o"></i> <?= $tagliando->getDateHour($tagliando->created) ?></span>
+
+                                    <h3 class="timeline-header"><a href="#">Note</a></h3>
+
+                                    <div class="timeline-body"><?= $tagliando->note ?></div>
+                                    <div class="timeline-footer">
+                                        <?= Html::a("Vedi i dettagli", Url::to(["tagliando/view", "id" => $tagliando->id]), ['class' => "btn btn-primary btn-xs"]) ?>
+                                    </div>
+                                </div>
+                            </li>
+                            
+                            <?php if(!empty($tagliando->allegati)){ ?>
+                            <li>
+                                <i class="fa fa-camera bg-purple"></i>
+                                <div class="timeline-item">
+                                    <span class="time"><i class="fa fa-clock-o"></i> <?= $tagliando->getDateHour($tagliando->created) ?></span>
+
+                                    <h3 class="timeline-header"><a href="#">File allegati</h3>
+                                    <div class="timeline-body">
+                                    <?php
+                                        $files = $tagliando->getAttachmentUrl('allegati', true);
+                                        $html = "";
+                                        foreach($files as $key => $value){
+                                            if(strpos($value, ".pdf")){
+                                                $html .= Html::a("<i class='fa fa-2x fa-file-pdf'></i> ", $value, ['target' => '_blank']);
+                                            }
+                                            else{
+                                                $html .= "<a href='{$value}' target='_blank'>".Html::img($value, ['width' => '100px', 'class' => "margin"])."</a>";
+                                            }
+                                        }
+                                        echo $html;
+                                    ?>
+                                        <!-- <img src="http://placehold.it/150x100" alt="..." class="margin"> -->
+                                    </div>
+                                </div>
+                            </li>
+                            <?php } ?>
+
+                        <?php } ?>
+                        <!-- END of foreach -->
                         <li>
                         <i class="fa fa-clock-o bg-gray"></i>
                         </li>

@@ -23,6 +23,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Vedi tutti', ['index'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Aggingi nuovo', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <div class="panel panel-default">
@@ -31,7 +33,6 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= DetailView::widget([
                 'model' => $model,
                 'attributes' => [
-                    'id',
                     [
                         'attribute' => 'id_operaio',
                         'value' => function($model){

@@ -14,7 +14,7 @@ use kartik\file\FileInput;
 
 <div class="tagliando-form">
 
-    <div class="container">
+    <div class="container-fluid">
         <?php $form = ActiveForm::begin(); ?>
 
         <div class="row">
@@ -59,14 +59,20 @@ use kartik\file\FileInput;
             <div class="col-md-12"><?= $form->field($model, 'note')->textarea(['rows' => 6]) ?></div>
         </div>
 
-        <?php 
-            echo '<label class="control-label">Aggiungi allegati</label>';
-            echo FileInput::widget([
-                'model' => $model,
-                'attribute' => 'allegati[]',
-                'options' => ['multiple' => true]
-            ]);
-        ?>
+        <div class="row">
+            <div class="col-md-12">
+                <?= $form->field($model, 'allegati[]')->widget(
+                        FileInput::classname(), [
+                            'options' => [
+                                'multiple' => true, 
+                                'accept' => 'image/*'
+                            ]
+                        ]
+                    );
+                ?>
+            </div>
+        </div>
+        
         <div class="form-group">
             <?= Html::submitButton('Salva', ['class' => 'btn btn-success']) ?>
         </div>

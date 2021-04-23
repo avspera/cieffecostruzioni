@@ -18,7 +18,7 @@ class OperaioSearch extends Operaio
     {
         return [
             [['id'], 'integer'],
-            [['nome', 'cognome', 'codice_fiscale', 'ruolo'], 'safe'],
+            [['nome', 'cognome', 'ruolo'], 'safe'],
         ];
     }
 

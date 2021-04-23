@@ -16,30 +16,33 @@ use kartik\file\FileInput;
         <div class="col-md-4"><?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?></div>
         <div class="col-md-4"><?= $form->field($model, 'cognome')->textInput(['maxlength' => true]) ?></div>
         <div class="col-md-4"><?= $form->field($model, 'ruolo')->dropdownlist($model->roles, ["prompt" => "Scegli"]) ?></div>
-
     </div>
     
     <?php 
-        echo '<label class="control-label">Aggiungi codice fiscale o tessera sanitaria</label>';
-        echo FileInput::widget([
-            'model' => $model,
-            'attribute' => 'codice_fiscale[]',
-            'options' => ['multiple' => true]
-        ]);
+        echo $form->field($model, 'codice_fiscale[]')->widget(
+            FileInput::classname(), [
+                'options' => [
+                    'multiple' => true, 
+                    'accept' => 'image/*'
+                ]
+            ]
+        );
     ?>
 
-<br>
+    <br>
     <?php 
-        echo '<label class="control-label">Aggiungi carta di identità o patente di guida</label>';
-        echo FileInput::widget([
-            'model' => $model,
-            'attribute' => 'documento_identita[]',
-            'options' => ['multiple' => true]
-        ]);
+        echo $form->field($model, 'documento_identita[]')->widget(
+            FileInput::classname(), [
+                'options' => [
+                    'multiple' => true, 
+                    'accept' => 'image/*'
+                ]
+            ]
+        );
     ?>
     
 
-    <div class="form-group">
+    <div class="form-group" style="margin-top:20px;">
         <?= Html::submitButton('Salva', ['class' => 'btn btn-success']) ?>
     </div>
 

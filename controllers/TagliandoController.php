@@ -9,7 +9,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use extensions\FKUploadUtils; 
+use app\extensions\FKUploadUtils;
 use yii\helpers\FileHelper;
 use yii\web\UploadedFile;
 
@@ -93,11 +93,9 @@ class TagliandoController extends Controller
              /**
              * check wheter files are uploaded
              */
-            if (!empty($_FILES)) {
-                $model = $this->manageUploadFiles($model);
-            }
-            else{
-                $model->allegati = "";
+            $files  = UploadedFile::getInstances($model, "allegati");
+            if(!empty($files)){
+                $model= $this->manageUploadFiles($model, $files, "allegati");
             }
 
             $model->created = date("Y-m-d H:i:s");
@@ -129,14 +127,12 @@ class TagliandoController extends Controller
 
             $model->updated = date("Y-m-d H:i:s");
             
-            /**
+             /**
              * check wheter files are uploaded
              */
-            if (!empty($_FILES)) {
-                $model = $this->manageUploadFiles($model);
-            }
-            else{
-                $model->allegati = "";
+            $files  = UploadedFile::getInstances($model, "allegati");
+            if(!empty($files)){
+                $model= $this->manageUploadFiles($model, $files, "allegati");
             }
             
             if($model->save())
@@ -153,27 +149,23 @@ class TagliandoController extends Controller
      * if !empty, upload to server
      * path is: /uploads/automezzo_id/*
      */
-    protected function manageUploadFiles($model) {
-
+    protected function manageUploadFiles($model, $files, $field) {
+        
         $uploader   = new FKUploadUtils();
-        $path       = Yii::getAlias('@web')."/uploads/".$model->id_automezzo."/";
+        
+        $path       = Yii::getAlias('@webroot')."/uploads/tagliandi/";
         
         $dirCreated = FileHelper::createDirectory($path);
         
-        $allegati = UploadedFile::getInstance($model, 'allegati');
-        
-        if (!empty($allegati)){
-            $inputFiles = [];
-            foreach($allegati as $allegato)
-            {
-                $filename           = $uploader->generateAndSaveFile($allegato, $path);
-                $inputFiles[]       = "uploads/".$model->id_automezzo."/".$filename;
-            }
-
-            $model->allegati = json_encode($inputFiles);
-            
+        $inputFiles = [];
+        foreach($files as $doc)
+        {
+            $filename           = $uploader->generateAndSaveFile($doc, $path);
+            $inputFiles[]       = "uploads/tagliandi/".$filename;
         }
-
+        
+        $model->$field = json_encode($inputFiles);
+        
         return $model;
     }//end of function
 

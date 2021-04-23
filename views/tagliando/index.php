@@ -50,7 +50,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 ),
             ],
             'note:ntext',
-            'allegati:ntext'
+            [
+                'attribute' => "allegati",
+                'value' => function($model){
+                    $value  = json_decode($model->allegati);
+                    $icon   = !empty($value) ? "<i class='fa fa-2x fa-check'></i>" : "<i class='fa fa-2x fa-times'></i>";
+                    $color  = !empty($value) ? "green" : "red";
+                    return "<span style='color:{$color}'>{$icon}</span>";
+                },
+                'format' => "raw"
+            ]
         ];
     ?>
     <div class="row">
@@ -59,6 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= ExportMenu::widget([
                     'dataProvider' => $dataProvider,
                     'columns' => $gridColumns,
+                    'filename' => 'lista_tagliandi_'.date('dd-MM-yy')
                 ]); ?>
         </div>
     </div>
@@ -75,7 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'exportContainer' => ['class' => 'btn-group-sm'],
                 'columns' => $gridColumns,
-                'emptyText' => "Nessun risultato trovato"
+                'emptyText' => "Nessun risultato trovato",
             ]); ?>
         </div>
     </div>

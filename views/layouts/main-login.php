@@ -14,6 +14,7 @@ $imgUrl = Yii::getAlias("@web")."/images/cf-costruzioni-0004.jpg";
 <head>
     <meta charset="<?= Yii::$app->charset ?>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?= $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => Yii::getAlias("@web").'/favicon.png']) ?>
     <?= Html::csrfMetaTags() ?>
     <style>
         body {

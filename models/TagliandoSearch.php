@@ -18,7 +18,7 @@ class TagliandoSearch extends Tagliando
     {
         return [
             [['id', 'id_automezzo'], 'integer'],
-            [['created', 'note', 'allegati'], 'safe'],
+            [['created', 'note'], 'safe'],
         ];
     }
 

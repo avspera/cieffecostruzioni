@@ -12,7 +12,7 @@
         </div>
     </div>
 <!-- /.box-header -->
-    <div class="box-body">
+    <div class="box-body box-home-content">
         <ul class="products-list product-list-in-box">
             <?php 
                 if(!empty($automezzi)){

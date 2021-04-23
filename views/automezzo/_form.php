@@ -24,24 +24,27 @@ use yii\jui\DatePicker;
                 'dateFormat' => 'dd-MM-yyyy',
                 'options' => [
                     'class' => 'form-control',
-                    "autocomplete" => "off"
-                ]
+                    "autocomplete" => "off",
+                    'placehoder' => "Es. 10-02-2020"
+                ],
         ]) ?></div>
         <div class="col-md-4"><?= $form->field($model, 'data_ultimo_rinnovo_assicurazione')->widget(\yii\jui\DatePicker::classname(), [
                 'language' => 'it',
                 'dateFormat' => 'dd-MM-yyyy',
                 'options' => [
                     'class' => 'form-control',
-                    "autocomplete" => "off"
-                ]
+                    "autocomplete" => "off",
+                    'placehoder' => "Es. 10-02-2020"
+                ],
         ]) ?></div>
         <div class="col-md-4"><?= $form->field($model, 'data_scadenza_assicurazione')->widget(\yii\jui\DatePicker::classname(), [
                 'language' => 'it',
                 'dateFormat' => 'dd-MM-yyyy',
                 'options' => [
                     'class' => 'form-control',
-                    "autocomplete" => "off"
-                ]
+                    "autocomplete" => "off",
+                    'placehoder' => "Es. 10-02-2020"
+                ],
         ]) ?></div>
         
     </div>
