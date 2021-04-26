@@ -39,9 +39,10 @@
     <ul class="nav nav-pills nav-stacked">
         <?php 
             foreach($categorieAccessori as $categoria){
+                $quantita = $accessori[$categoria->id]["quantita"] > 0 ? $accessori[$categoria->id]["quantita"] : 0;
         ?>
             <li><a href="<?= Url::to(["accessori/index", "oggetto" => $categoria->id]) ?>"><?= $categoria->nome ?>
-                <span class="pull-right <?= $categoria->color ?>">12%</span></a>
+                <span class="pull-right <?= $categoria->color ?>"><?= $quantita ?></span></a>
             </li>
         <?php } ?>
         

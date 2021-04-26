@@ -168,7 +168,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= ExportMenu::widget([
                     'dataProvider' => $dataProvider,
                     'columns' => $gridColumns,
-                    'filename' => 'lista_automezzi_'.date('dd-MM-yy')
+                    'filename' => 'lista_automezzi_'.date('d-m-Y')
                 ]); ?>
         </div>
     </div>

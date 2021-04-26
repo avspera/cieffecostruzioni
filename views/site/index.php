@@ -7,8 +7,6 @@ use yii\helpers\Url;
 
 $this->title = 'Gestione cieffecostruzioni';
 \yii\web\YiiAsset::register($this);
-
-$this->registerJsFile(Yii::getAlias("@web").'/js/pieChart.js' );
 ?>
 <div class="site-index">
 
@@ -231,7 +229,7 @@ $this->registerJsFile(Yii::getAlias("@web").'/js/pieChart.js' );
             </div>
             
             <div class="row">
-                <div class="col-md-12"><?= $this->render("snippets/_accessori", ["title" => "Accessori consegnati", "categorieAccessori" => $categorieAccessori]) ?></div>
+                <div class="col-md-12"><?= $this->render("snippets/_accessori", ["title" => "Accessori consegnati", "categorieAccessori" => $categorieAccessori, 'accessori' => $accessori]) ?></div>
             </div>
 
             <div class="row">
@@ -242,53 +240,28 @@ $this->registerJsFile(Yii::getAlias("@web").'/js/pieChart.js' );
     </div>
 </div>
 
-<script src="<?= Yii::getAlias("@web") ?>/js/pieChart.js"></script>
+<script src="<?= Yii::getAlias("@web") ?>/js/Chart.js"></script>
 
 <script>
     //-------------
     //- PIE CHART -
     //-------------
     // Get context with jQuery - using jQuery's .get() method.
-    var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
-    var pieChart       = new Chart(pieChartCanvas)
-    var PieData        = [
-      {
-        value    : 700,
-        color    : '#f56954',
-        highlight: '#f56954',
-        label    : 'Chrome'
-      },
-      {
-        value    : 500,
-        color    : '#00a65a',
-        highlight: '#00a65a',
-        label    : 'IE'
-      },
-      {
-        value    : 400,
-        color    : '#f39c12',
-        highlight: '#f39c12',
-        label    : 'FireFox'
-      },
-      {
-        value    : 600,
-        color    : '#00c0ef',
-        highlight: '#00c0ef',
-        label    : 'Safari'
-      },
-      {
-        value    : 300,
-        color    : '#3c8dbc',
-        highlight: '#3c8dbc',
-        label    : 'Opera'
-      },
-      {
-        value    : 100,
-        color    : '#d2d6de',
-        highlight: '#d2d6de',
-        label    : 'Navigator'
-      }
-    ]
+    var pieChartCanvas  = $('#pieChart').get(0).getContext('2d')
+    var pieChart        = new Chart(pieChartCanvas);
+    var incomingPieData = <?= json_encode($accessori) ?>;
+    var PieData         = [];
+
+    $.each(incomingPieData, function(key, element){
+        var obj = {
+            value: element.quantita,
+            label: element.oggetto,
+            color    : '#f56954',
+            highlight: '#f56954',
+        }
+        PieData.push(obj);
+    });
+    
     var pieOptions     = {
       //Boolean - Whether we should show a stroke on each segment
       segmentShowStroke    : true,

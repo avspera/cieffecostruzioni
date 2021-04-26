@@ -31,7 +31,7 @@ class Accessori extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['oggetto', 'id_operaio'], 'required'],
+            [['oggetto', 'id_operaio', 'created'], 'required'],
             [['id_operaio', 'oggetto'], 'integer'],
             [['taglia', 'quantita', 'created'], 'safe'],
             [['oggetto', 'taglia'], 'string', 'max' => 255],
@@ -62,6 +62,12 @@ class Accessori extends \yii\db\ActiveRecord
         $categoria = CategoriaAccessori::findOne(["id" => $this->oggetto]);
 
         return !empty($categoria) ? $categoria->nome : "";
+    }
+
+    public function getCategoriaColor(){
+        $categoria = CategoriaAccessori::findOne(["id" => $this->oggetto]);
+
+        return !empty($categoria) ? $categoria->color : "";
     }
 
     public function getCategorieAccessori(){

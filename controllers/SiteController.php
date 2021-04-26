@@ -15,7 +15,7 @@ use app\models\Accessori;
 use app\models\CategoriaAccessori;
 use app\models\Tagliando;
 use app\models\Operaio;
-
+use yii\db\Expression;
 class SiteController extends Controller
 {
     /**
@@ -91,7 +91,17 @@ class SiteController extends Controller
                         ->all();
 
 
-        $accessori      = Accessori::find()->select(["id", "oggetto"])->groupBy(["id", "oggetto"])->count();
+        $accessori      = Accessori::find()->select(["id", "oggetto", new Expression('SUM(quantita) as quantita')])->groupBy(["oggetto"])->all();
+        $tmp = [];
+        
+        foreach($accessori as $accessorio){
+            $tmp[$accessorio->oggetto] = [
+                'quantita'  => $accessorio->quantita,
+                'oggetto'   => $accessorio->getCategoriaAccessori(),
+                'color'     => $accessorio->getCategoriaColor()
+            ];
+        }
+        
         $categorieAccessori = CategoriaAccessori::find()->orderBy(["nome" => SORT_ASC])->all();
         
         $tagliandiCount = Tagliando::find()->count();
@@ -102,13 +112,13 @@ class SiteController extends Controller
         return $this->render('index', [
                 'automezzi'         => $dataProvider, 
                 'automezzoSearch'   => $searchModel,
-                'accessori'         => $accessori,
+                'accessori'         => $tmp,
                 'categorieAccessori' => $categorieAccessori,
                 'tagliandiCount'    => $tagliandiCount,
                 'operaiCount'       => $operaiCount,
                 'scadenzaAss'       => $scadenzaAss,
                 'scadenzaRevisione' => $scadenzaRevisione,
-                'operai'           => $operai
+                'operai'            => $operai
             ]
         );
     }
