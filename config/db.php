@@ -8,7 +8,7 @@ return [
     // 'charset' => 'utf8',
 
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=89.46.111.34;dbname=Sql1045667_1',
+    'dsn' => 'mysql:host=89.46.111.34;dbname=Sql1045667_5',
     'username' => 'Sql1045667',
     'password' => 'ek1l1153g4',
     'charset' => 'utf8',

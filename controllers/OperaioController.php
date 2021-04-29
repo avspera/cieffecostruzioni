@@ -105,10 +105,16 @@ class OperaioController extends Controller
             if(!empty($files)){
                 $model= $this->manageUploadFiles($model, $files, "codice_fiscale");
             }
+            else{
+                $model->codice_fiscale = "";
+            }
 
             $files  = UploadedFile::getInstances($model, "documento_identita");
             if(!empty($files)){
                 $model= $this->manageUploadFiles($model, $files, "documento_identita");
+            }
+            else{
+                $model->documento_identita = "";
             }
             /**
              * end of file check

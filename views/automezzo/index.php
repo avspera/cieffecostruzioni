@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'data_immatricolazione',
                 'value' => function($model){
-                    return $model->formatDate($model->data_immatricolazione);
+                    return $model->data_immatricolazione !== "0000-00-00 00:00:00" ? $model->formatDate($model->data_immatricolazione) : "-";
                 },
                 'hAlign' => 'center', 
                 'vAlign' => 'middle',
@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'data_ultimo_rinnovo_assicurazione',
                 'value' => function($model){
-                    return $model->formatDate($model->data_ultimo_rinnovo_assicurazione);
+                    return $model->data_ultimo_rinnovo_assicurazione !== "0000-00-00 00:00:00" ? $model->formatDate($model->data_ultimo_rinnovo_assicurazione) : "-";
                 },
                 'filterType' => GridView::FILTER_DATE,
                     'filterWidgetOptions' =>([
@@ -83,7 +83,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'data_scadenza_assicurazione',
                 'value' => function($model){
-                    $data =  $model->formatDate($model->data_scadenza_assicurazione);
+                    $data = $model->data_scadenza_assicurazione !== "0000-00-00 00:00:00" ? $model->formatDate($model->data_scadenza_assicurazione) : "-";
                     $isExpiring = $model->isExpiring("data_scadenza_assicurazione");
                     $color = $isExpiring ? "red" : "black";
                     return "<span style='color:{$color}'>{$data}</span>";
@@ -110,7 +110,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'data_ultima_revisione',
                 'value' => function($model){
-                    return $model->formatDate($model->data_ultima_revisione);
+                    return $model->data_ultima_revisione !== "0000-00-00 00:00:00" ? $model->formatDate($model->data_ultima_revisione) : "-";
                 },
                 'filterType' => GridView::FILTER_DATE,
                     'filterWidgetOptions' =>([
@@ -133,7 +133,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'data_prossima_revisione',
                 'value' => function($model){
-                    $data =  $model->formatDate($model->data_prossima_revisione);
+                    $data = $model->data_prossima_revisione !== "0000-00-00 00:00:00" ? $model->formatDate($model->data_prossima_revisione) : "-";
                     $isExpiring = $model->isExpiring("data_prossima_revisione");
                     $color = $isExpiring ? "red" : "black";
                     return "<span style='color:{$color}'>{$data}</span>";

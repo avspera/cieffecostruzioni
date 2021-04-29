@@ -104,7 +104,7 @@ class SiteController extends Controller
             $accessoriCount += $accessorio->quantita;
         }
         
-        $categorieAccessori = CategoriaAccessori::find()->select(["id", "nome"])->orderBy(["nome" => SORT_ASC])->all();
+        $categorieAccessori = CategoriaAccessori::find()->orderBy(["nome" => SORT_ASC])->all();
         
         $tagliandiCount = Tagliando::find()->count();
 
