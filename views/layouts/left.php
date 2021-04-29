@@ -15,7 +15,7 @@ use app\models\AutomezzoSearch;
                 <img src='<?= Yii::getAlias("@web")."/images/logo.jpeg"?> 'class="img-circle" alt="User Image"/>
             </div>
             <div class="pull-left info">
-                <p><?= Yii::$app->user->identity->username ?></p>
+                <p><?= Yii::$app->user->identity->nome ?></p>
 
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
@@ -75,16 +75,16 @@ use app\models\AutomezzoSearch;
                             ['label' => 'Vedi tutti', 'icon' => 'list', 'url' => ['/operaio/index'],],
                         ],
                     ],
-                    // [
-                    //     'label' => 'Utenti',
-                    //     'icon' => 'user-plus',
-                    //     'url' => '#',
-                    //     'items' => [
-                    //         ['label' => 'Nuovo', 'icon' => 'plus', 'url' => ['/user/create'],],
-                    //         ['label' => 'Vedi tutti', 'icon' => 'list', 'url' => ['/user/index'],],
-                    //     ],
-                    //     'visible' => Yii::$app->user->identity->username == "admin"
-                    // ],
+                    [
+                        'label' => 'Utenti',
+                        'icon' => 'user-plus',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => 'Nuovo', 'icon' => 'plus', 'url' => ['/user/create'],],
+                            ['label' => 'Vedi tutti', 'icon' => 'list', 'url' => ['/user/index'],],
+                        ],
+                        'visible' => Yii::$app->user->identity->isAdmin()
+                    ],
                 ] 
             ]
         ) ?>

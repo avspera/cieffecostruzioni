@@ -70,6 +70,12 @@ class Accessori extends \yii\db\ActiveRecord
         return !empty($categoria) ? $categoria->color : "";
     }
 
+    public function getCategoriaColorHex(){
+        $categoria = CategoriaAccessori::findOne(["id" => $this->oggetto]);
+
+        return !empty($categoria) ? $categoria->color_hex : "";
+    }
+
     public function getCategorieAccessori(){
         $categorie = CategoriaAccessori::find()->all();
         $out = [];

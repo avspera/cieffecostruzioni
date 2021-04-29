@@ -16,6 +16,8 @@ use yii\helpers\Html;
         <meta charset="<?= Yii::$app->charset ?>"/>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <?= $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => Yii::getAlias("@web").'/favicon.png']) ?>
+        <?= $this->registerCssFile("@web/css/custom.css"); ?>
+
         <?= Html::csrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>

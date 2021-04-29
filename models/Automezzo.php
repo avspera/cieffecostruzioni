@@ -23,7 +23,7 @@ use Yii;
 class Automezzo extends \yii\db\ActiveRecord
 {
     /**
-     * {@inheritdoc}
+     * {@inheritdoc}x2
      */
     public static function tableName()
     {
@@ -36,8 +36,8 @@ class Automezzo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['marca', 'modello', 'targa', 'created', 'data_immatricolazione', 'data_ultimo_rinnovo_assicurazione', 'data_scadenza_assicurazione', 'data_ultima_revisione', 'data_prossima_revisione'], 'required'],
-            [['created', 'data_immatricolazione', 'data_ultimo_rinnovo_assicurazione', 'data_scadenza_assicurazione', 'data_ultima_revisione', 'data_prossima_revisione'], 'safe'],
+            [['targa', 'created'], 'required'],
+            [['marca', 'modello', 'data_immatricolazione', 'data_ultimo_rinnovo_assicurazione', 'data_scadenza_assicurazione', 'data_ultima_revisione', 'data_prossima_revisione'], 'safe'],
             [['marca', 'modello', 'targa'], 'string', 'max' => 255],
         ];
     }

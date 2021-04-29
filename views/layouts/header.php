@@ -26,7 +26,7 @@ use app\models\Automezzo;
 
 <header class="main-header">
 
-    <?= Html::a('<span class="logo-mini">APP</span><span class="logo-lg">' . Yii::$app->name . '</span>', Yii::$app->homeUrl, ['class' => 'logo']) ?>
+    <?= Html::a('<span class="logo-mini">G.A.C</span><span class="logo-lg">' . Yii::$app->name . '</span>', Yii::$app->homeUrl, ['class' => 'logo']) ?>
 
     <nav class="navbar navbar-static-top" role="navigation">
 
@@ -96,10 +96,7 @@ use app\models\Automezzo;
                         <li class="user-header">
                             <!-- <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle" alt="cieffecostruzioni"/> -->
                             <img src='<?= Yii::getAlias("@web")."/images/logo.jpeg"?> 'class="img-circle" alt="cieffecostruzioni"/>
-
-                            <p>
-                                <?= Yii::$app->user->identity->username ?>
-                            </p>
+                            <p><?= Yii::$app->user->identity->nome ?></p>
                             <small style="color:white !important;">cieffecostruzioni gestione automezzi</small>
                         </li>
                         <!-- Menu Body -->
@@ -116,9 +113,9 @@ use app\models\Automezzo;
                         </li> -->
                         <!-- Menu Footer-->
                         <li class="user-footer">
-                            <!-- <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">Profile</a>
-                            </div> -->
+                            <div class="pull-left">
+                                <a href="<?= Url::to(["user/view", "id" => Yii::$app->user->identity->id]) ?>" class="btn btn-default btn-flat">Profilo</a>
+                            </div>
                             <div class="pull-right">
                                 <?= Html::a(
                                     'Esci',

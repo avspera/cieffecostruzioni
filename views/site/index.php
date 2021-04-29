@@ -213,7 +213,7 @@ $this->title = 'Gestione cieffecostruzioni';
                         <span class="info-box-icon bg-primary"><i class="fa fa-paperclip"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text">Accessori</span>
-                            <span class="info-box-number"><?= $accessori ?></span>
+                            <span class="info-box-number"><?= $accessoriCount ?></span>
                         </div>
                         <!-- /.info-box-content -->
                     </div>
@@ -256,13 +256,16 @@ $this->title = 'Gestione cieffecostruzioni';
         var obj = {
             value: element.quantita,
             label: element.oggetto,
-            color    : '#f56954',
-            highlight: '#f56954',
+            color    : element.color_hex,
+            highlight: '#f05e22',
         }
+        console.log(obj);
         PieData.push(obj);
     });
     
     var pieOptions     = {
+        width: "220px",
+        heigth: '160px',
       //Boolean - Whether we should show a stroke on each segment
       segmentShowStroke    : true,
       //String - The colour of each segment stroke

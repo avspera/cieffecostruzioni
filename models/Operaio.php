@@ -34,8 +34,9 @@ class Operaio extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nome', 'cognome', 'codice_fiscale', 'ruolo', 'created'], 'required'],
+            [['nome', 'cognome', 'ruolo', 'created'], 'required'],
             [['nome', 'cognome', 'ruolo'], 'string', 'max' => 255],
+            [['codice_fiscale', 'documento_dentita'], 'safe'],
             [
                 ['documento_identita', 'codice_fiscale'], 
                     'file', 

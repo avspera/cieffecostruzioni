@@ -16,7 +16,7 @@
     <div class="row">
         <div class="col-md-8">
         <div class="chart-responsive">
-            <canvas id="pieChart" height="160" width="224" style="width: 224px; height: 160px;"></canvas>
+            <canvas id="pieChart" style="width: 400px; height: 200px;"></canvas>
         </div>
         <!-- ./chart-responsive -->
         </div>

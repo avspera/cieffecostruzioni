@@ -11,7 +11,7 @@
         </div>
     </div>
 <!-- /.box-header -->
-    <div class="box-body box-home-content">
+    <div class="box-body box-home-content scrollable">
         <ul class="products-list product-list-in-box">
             <?php 
                 if(!empty($operai)){

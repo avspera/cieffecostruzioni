@@ -93,16 +93,18 @@ class SiteController extends Controller
 
         $accessori      = Accessori::find()->select(["id", "oggetto", new Expression('SUM(quantita) as quantita')])->groupBy(["oggetto"])->all();
         $tmp = [];
-        
+        $accessoriCount = 0;
         foreach($accessori as $accessorio){
             $tmp[$accessorio->oggetto] = [
                 'quantita'  => $accessorio->quantita,
                 'oggetto'   => $accessorio->getCategoriaAccessori(),
-                'color'     => $accessorio->getCategoriaColor()
+                'color'     => $accessorio->getCategoriaColor(),
+                'color_hex' => $accessorio->getCategoriaColorHex()
             ];
+            $accessoriCount += $accessorio->quantita;
         }
         
-        $categorieAccessori = CategoriaAccessori::find()->orderBy(["nome" => SORT_ASC])->all();
+        $categorieAccessori = CategoriaAccessori::find()->select(["id", "nome"])->orderBy(["nome" => SORT_ASC])->all();
         
         $tagliandiCount = Tagliando::find()->count();
 
@@ -113,6 +115,7 @@ class SiteController extends Controller
                 'automezzi'         => $dataProvider, 
                 'automezzoSearch'   => $searchModel,
                 'accessori'         => $tmp,
+                'accessoriCount'    => $accessoriCount,
                 'categorieAccessori' => $categorieAccessori,
                 'tagliandiCount'    => $tagliandiCount,
                 'operaiCount'       => $operaiCount,
