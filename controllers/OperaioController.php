@@ -60,7 +60,7 @@ class OperaioController extends Controller
     {
         $searchModel = new OperaioSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $dataProvider->sort->defaultOrder = ["cognome" => SORT_ASC];
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
         <?= Html::a('Vedi tutti', ['index'], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Aggingi nuovo', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Aggiungi nuovo', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <div class="panel panel-default">

@@ -24,9 +24,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
                 'columns' => [
+                    ['class' => 'yii\grid\ActionColumn'],
                     ['class' => 'yii\grid\SerialColumn'],
                     'nome',
-                    ['class' => 'yii\grid\ActionColumn'],
+                    [
+                       'attribute' => 'costo',
+                       'value' => function($model){
+                           return $model->formatValue($model->costo);
+                       }
+                    ],
+                    [
+                        'attribute' => 'costo_con_iva',
+                        'value' => function($model){
+                            return $model->formatValue($model->costo_con_iva);
+                        }
+                     ],
                 ],
                 'emptyText' => "Nessun risultato trovato"
             ]); ?>

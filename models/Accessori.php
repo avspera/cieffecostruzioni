@@ -99,4 +99,8 @@ class Accessori extends \yii\db\ActiveRecord
 
         return !empty($value) ? date($format, strtotime($value)) : "";
     }
+
+    public function formatValue($value){
+        return number_format($value, 2, ",", "."). " €";
+    }
 }

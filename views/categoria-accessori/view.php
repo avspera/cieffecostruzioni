@@ -34,6 +34,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attributes' => [
                     'id',
                     'nome',
+                    [
+                        'attribute' => 'costo',
+                        'value' => function($model){
+                            return $model->formatValue($model->costo);
+                        }
+                    ],
+                    [
+                        'attribute' => 'costo_con_iva',
+                        'value' => function($model){
+                            return $model->formatValue($model->costo_con_iva);
+                        }
+                    ],
                 ],
             ]) ?>
         </div>

@@ -96,10 +96,11 @@ class SiteController extends Controller
         $accessoriCount = 0;
         foreach($accessori as $accessorio){
             $tmp[$accessorio->oggetto] = [
-                'quantita'  => $accessorio->quantita,
-                'oggetto'   => $accessorio->getCategoriaAccessori(),
-                'color'     => $accessorio->getCategoriaColor(),
-                'color_hex' => $accessorio->getCategoriaColorHex()
+                'quantita'      => $accessorio->quantita,
+                'oggetto'       => $accessorio->getCategoriaAccessori(),
+                'costo_totale'  => $accessorio->formatValue($accessorio->costo_totale),
+                'color'         => $accessorio->getCategoriaColor(),
+                'color_hex'     => $accessorio->getCategoriaColorHex()
             ];
             $accessoriCount += $accessorio->quantita;
         }

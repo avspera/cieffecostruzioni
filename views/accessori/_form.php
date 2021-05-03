@@ -19,7 +19,7 @@ use yii\web\JsExpression;
             <?php 
                 if(!isset($update) && !$update){
             ?>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <?= $form->field($model, 'id_operaio')->widget(Select2::classname(), [
                             'options' => ['multiple'=>false, 'placeholder' => 'Cerca per cognome...'],
                             'pluginOptions' => [
@@ -42,20 +42,19 @@ use yii\web\JsExpression;
                     ?>
                 </div>
             <?php } else { ?>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label>Operaio</label>
                     <input readonly type="text" class="form-control" value="<?= $model->getOperaio() ?>">
                 </div>
                 
             <?php } ?>
-            <div class="col-md-6">
-                <?= $form->field($model, 'oggetto')->dropDownList(\yii\helpers\ArrayHelper::map(\app\models\CategoriaAccessori::find()->orderBy('nome')->all(), 'id', 'nome'), ['maxlength' => true, 'prompt' => 'Scegli']) ?>
+            <div class="col-md-4">
+                <?= $form->field($model, 'oggetto')->dropDownList(\yii\helpers\ArrayHelper::map(\app\models\CategoriaAccessori::find()->orderBy('nome')->all(), 'id', 'nome'), ['maxlength' => true, 'prompt' => 'Scegli', 'onchange' => 'getCostoSingolo()']) ?>
             </div>
+            <div class="col-md-4"><?= $form->field($model, 'taglia')->textInput(['maxlength' => true]) ?></div>
         </div>
 
         <div class="row">
-            <div class="col-md-4"><?= $form->field($model, 'quantita')->textInput(['maxlength' => true, 'type' => "number"]) ?></div>
-            <div class="col-md-4"><?= $form->field($model, 'taglia')->textInput(['maxlength' => true]) ?></div>
             <div class="col-md-4">
                 <?= $form->field($model, 'created')->widget(\yii\jui\DatePicker::classname(), [
                     'language' => 'it',
@@ -66,6 +65,8 @@ use yii\web\JsExpression;
                     ]
                 ])->label("Data di consegna") ?>
             </div>
+            <div class="col-md-4"><?= $form->field($model, 'quantita')->textInput(['maxlength' => true, 'type' => "number", "onchange" => "calculateCostoTotale()"]) ?></div>
+            <div class="col-md-4"><?= $form->field($model, 'costo_totale')->textInput(['maxlength' => true, 'readonly' => true]) ?></div>
         </div>
 
         <div class="row">
@@ -79,3 +80,33 @@ use yii\web\JsExpression;
         <?php ActiveForm::end(); ?>
 
 </div>
+
+<script>
+    function getCostoSingolo(){
+        let oggetto = $('#accessori-oggetto option:selected').val();
+        
+        $.ajax({
+            dataType: 'json',
+            url: '<?= Url::to(["categoria-accessori/get-costo-singolo"]) ?>',
+            method: 'post',
+            data: {
+                oggetto: oggetto 
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(errorThrown);
+            },
+            success: function (data) {
+                if(data.status == "200")
+                    $("#accessori-costo_totale").val(data.costo_singolo);
+            }
+        });
+    }
+
+    function calculateCostoTotale(){
+        let quantita = $('#accessori-quantita').val();
+        let costo_singolo = $("#accessori-costo_totale").val();
+        let costo_totale = quantita*costo_singolo;
+        console.log(costo_totale);
+        $("#accessori-costo_totale").val(costo_totale);
+    }
+</script>

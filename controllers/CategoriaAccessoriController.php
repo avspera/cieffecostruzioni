@@ -8,6 +8,7 @@ use app\models\CategoriaAccessoriSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * CategoriaAccessoriController implements the CRUD actions for CategoriaAccessori model.
@@ -20,10 +21,21 @@ class CategoriaAccessoriController extends Controller
     public function behaviors()
     {
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => [
+                            'login',
+                        ],
+                        'allow' => true,
+                        'allow' => ['?'],
+                    ],
+                    [
+                        'actions' => ['index', 'view', 'create', 'update', 'delete', 'get-costo-singolo'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
                 ],
             ],
         ];
@@ -55,6 +67,24 @@ class CategoriaAccessoriController extends Controller
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+    }
+
+
+    public function actionGetCostoSingolo(){
+        if(Yii::$app->request->isAjax){
+            $data = Yii::$app->request->post();
+            $costo_singolo = CategoriaAccessori::find()
+                                ->select(["costo_con_iva"])
+                                ->where(["id" => $data["oggetto"]])
+                                ->one();
+            
+            $out = [
+                "status" => !empty($costo_singolo) ?  "200" : "100",
+                "costo_singolo" => !empty($costo_singolo->costo_con_iva) ? $costo_singolo->costo_con_iva : 0
+            ];
+            \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            return $out;
+        }
     }
 
     /**

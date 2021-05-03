@@ -27,7 +27,7 @@ class CategoriaAccessori extends \yii\db\ActiveRecord
     {
         return [
             [['nome'], 'required'],
-            [['color'], 'safe'],
+            [['color', 'costo', 'costo_con_iva'], 'safe'],
             [['nome', 'color'], 'string', 'max' => 255],
         ];
     }
@@ -40,6 +40,12 @@ class CategoriaAccessori extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'nome' => 'Nome',
+            'costo' => "Costo Iva escl.",
+            'costo_con_iva' => "Costo Iva incl."
         ];
+    }
+
+    public function formatValue($value){
+        return number_format($value, 2, ",", "."). " €";
     }
 }

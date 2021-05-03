@@ -18,7 +18,7 @@ class CategoriaAccessoriSearch extends CategoriaAccessori
     {
         return [
             [['id'], 'integer'],
-            [['nome'], 'safe'],
+            [['nome', 'costo', 'costo_con_iva'], 'safe'],
         ];
     }
 

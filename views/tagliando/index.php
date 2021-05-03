@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => "allegati",
                 'value' => function($model){
-                    $value  = json_decode($model->allegati);
+                    $value  = json_decode($model->allegati, true);
                     $icon   = !empty($value) ? "<i class='fa fa-2x fa-check'></i>" : "<i class='fa fa-2x fa-times'></i>";
                     $color  = !empty($value) ? "green" : "red";
                     return "<span style='color:{$color}'>{$icon}</span>";

@@ -35,7 +35,7 @@ class Tagliando extends \yii\db\ActiveRecord
         return [
             [['id_automezzo', 'created'], 'required'],
             [['id_automezzo'], 'integer'],
-            [['note', 'allegati', 'updated'], 'safe'],
+            [['note', 'allegati', 'updated', 'costo', 'costo_con_iva'], 'safe'],
             [['note'], 'string'],
             [['allegati'], 'file', 'extensions' => ['jpg', 'png', 'jpeg', 'pdf'], 'skipOnEmpty' => true, 'maxSize' => 1024 * 1024 * 5, 'tooBig' => 'File troppo grande (Max 5MB)'],
             [['id_automezzo'], 'exist', 'skipOnError' => true, 'targetClass' => Automezzo::className(), 'targetAttribute' => ['id_automezzo' => 'id']],
@@ -54,6 +54,8 @@ class Tagliando extends \yii\db\ActiveRecord
             'updated' => 'Ultima modifica',
             'note' => 'Note',
             'allegati' => 'Allegati',
+            'costo' => "Costo Iva escl.",
+            'costo_con_iva' => "Costo Iva incl.",
         ];
     }
 
@@ -89,5 +91,9 @@ class Tagliando extends \yii\db\ActiveRecord
             }
         }
         return $out;
+    }
+
+    public function formatValue($value){
+        return number_format($value, 2, ",", "."). " €";
     }
 }

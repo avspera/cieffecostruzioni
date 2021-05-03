@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
             <?= Html::a('Vedi tutti', ['index'], ['class' => 'btn btn-primary']) ?>
-            <?= Html::a('Aggingi nuovo', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('Aggiungi nuovo', ['create'], ['class' => 'btn btn-success']) ?>
         </div>
         <div class="panel-body">
             <?= DetailView::widget([
@@ -46,6 +46,18 @@ $this->params['breadcrumbs'][] = $this->title;
                             return $model->formatDate($model->created);
                         } 
                     ],
+                    [
+                        'attribute' => 'costo',
+                        'value' => function($model){
+                            return $model->formatValue($model->costo);
+                        } 
+                    ],
+                    [
+                        'attribute' => 'costo_con_iva',
+                        'value' => function($model){
+                            return $model->formatValue($model->costo_con_iva);
+                        } 
+                    ],
                     'note:ntext',
                     [
                         'attribute' => 'allegati',
@@ -54,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             $html = "";
                             foreach($files as $key => $value){
                                 if(strpos($value, ".pdf")){
-                                    $html .= Html::a("<i class='fa fa-2x fa-file-pdf'></i> ", $value, ['target' => '_blank']);
+                                    $html .= Html::a(Html::img("@web/images/pdf_icon.png"), $value, ['target' => '_blank']);
                                 }
                                 else{
                                     $html .= "<a href='{$value}' target='_blank'>".Html::img($value, ['width' => '100px'])."</a>";
@@ -63,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             return $html;
                         },
                         'format' => "raw"
-                    ]
+                    ],
                 ],
             ]) ?>
         </div>

@@ -40,9 +40,14 @@
         <?php 
             foreach($categorieAccessori as $categoria){
                 $quantita = $accessori[$categoria->id]["quantita"] > 0 ? $accessori[$categoria->id]["quantita"] : 0;
+                $costo_totale = $accessori[$categoria->id]["costo_totale"];
         ?>
-            <li><a href="<?= Url::to(["accessori/index", "oggetto" => $categoria->id]) ?>"><?= $categoria->nome ?>
-                <span class="pull-right <?= $categoria->color ?>"><?= $quantita ?></span></a>
+            <li>
+                <a href="<?= Url::to(["accessori/index", "oggetto" => $categoria->id]) ?>">
+                    <?= $categoria->nome ?>
+                    <span class="<?= $categoria->color ?>">(<?= $quantita ?>)</span>
+                    <span class="pull-right"><?= $costo_totale ?></span>
+                </a>
             </li>
         <?php } ?>
         
