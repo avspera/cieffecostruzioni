@@ -18,7 +18,7 @@ class AccessoriSearch extends Accessori
     {
         return [
             [['id', 'id_operaio', 'oggetto', 'quantita'], 'integer'],
-            [['taglia', 'quantita', 'created'], 'safe'],
+            [['taglia', 'quantita', 'created', 'costo_totale'], 'safe'],
         ];
     }
 

@@ -133,7 +133,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             <li class="time-label">
                                 <span class="bg-red"><?= $tagliando->formatDate($tagliando->created) ?></span>
                             </li>
-                        
                             <li>
                                 <i class="fa fa-user bg-aqua"></i>
 
@@ -158,6 +157,21 @@ $this->params['breadcrumbs'][] = $this->title;
                                     </div>
                                 </div>
                             </li>
+
+                            <li>
+                                <i class="fa fa-money bg-green"></i>
+
+                                <div class="timeline-item">
+                                    <span class="time"><i class="fa fa-clock-o"></i> <?= $tagliando->getDateHour($tagliando->created) ?></span>
+
+                                    <h3 class="timeline-header"><a href="#">Costo</a></h3>
+
+                                    <div class="timeline-body">
+                                        IVA esclusa: <?= $tagliando->formatValue($tagliando->costo) ?> <br />
+                                        IVA inclusa: <?= $tagliando->formatValue($tagliando->costo_con_iva) ?>
+                                    </div>
+                                </div>
+                            </li>
                             
                             <?php if(!empty($tagliando->allegati)){ ?>
                             <li>
@@ -169,10 +183,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <div class="timeline-body">
                                     <?php
                                         $files = $tagliando->getAttachmentUrl('allegati', true);
+                                        
                                         $html = "";
                                         foreach($files as $key => $value){
                                             if(strpos($value, ".pdf")){
-                                                $html .= Html::a("<i class='fa fa-2x fa-file-pdf'></i> ", $value, ['target' => '_blank']);
+                                                $html .= Html::a(Html::img("@web/images/pdf_icon.png"), $value, ['target' => '_blank']);
                                             }
                                             else{
                                                 $html .= "<a href='{$value}' target='_blank'>".Html::img($value, ['width' => '100px', 'class' => "margin"])."</a>";

@@ -89,6 +89,7 @@ class AccessoriController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             
             $model->created = $model->convertDate($model->created);
+            
             if($model->save())
                 return $this->redirect(['view', 'id' => $model->id]);
         }

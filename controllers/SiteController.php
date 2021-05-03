@@ -91,7 +91,7 @@ class SiteController extends Controller
                         ->all();
 
 
-        $accessori      = Accessori::find()->select(["id", "oggetto", new Expression('SUM(quantita) as quantita')])->groupBy(["oggetto"])->all();
+        $accessori      = Accessori::find()->select(["id", "oggetto", new Expression('SUM(quantita) as quantita'), new Expression('SUM(costo_totale) as costo_totale')])->groupBy(["oggetto"])->all();
         $tmp = [];
         $accessoriCount = 0;
         foreach($accessori as $accessorio){
@@ -104,6 +104,7 @@ class SiteController extends Controller
             ];
             $accessoriCount += $accessorio->quantita;
         }
+        
         
         $categorieAccessori = CategoriaAccessori::find()->orderBy(["nome" => SORT_ASC])->all();
         

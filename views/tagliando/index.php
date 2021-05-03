@@ -49,6 +49,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]
                 ),
             ],
+            [
+                'attribute' => 'costo',
+                'value' => function($model){
+                    return $model->formatValue($model->costo);
+                } 
+            ],
+            [
+                'attribute' => 'costo_con_iva',
+                'value' => function($model){
+                    return $model->formatValue($model->costo_con_iva);
+                } 
+            ],
             'note:ntext',
             [
                 'attribute' => "allegati",

@@ -47,8 +47,14 @@ $this->params['breadcrumbs'][] = $this->title;
                             return $model->getCategoriaAccessori();
                         }
                     ],
-                    'quantita',
                     'taglia',
+                    'quantita',
+                    [
+                        'attribute' => "costo_totale",
+                        'value' => function($model){
+                            return $model->formatValue($model->costo_totale);
+                        }
+                    ],
                     [
                         'attribute' => "created",
                         'value' =>  function($model){

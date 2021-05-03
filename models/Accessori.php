@@ -33,8 +33,8 @@ class Accessori extends \yii\db\ActiveRecord
         return [
             [['oggetto', 'id_operaio', 'created'], 'required'],
             [['id_operaio', 'oggetto'], 'integer'],
-            [['taglia', 'quantita', 'created'], 'safe'],
-            [['oggetto', 'taglia'], 'string', 'max' => 255],
+            [['taglia', 'quantita', 'created', 'costo_totale'], 'safe'],
+            [['taglia'], 'string', 'max' => 255],
         ];
     }
 

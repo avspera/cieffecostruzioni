@@ -55,6 +55,12 @@ use kartik\file\FileInput;
             <?php } ?>
         </div>
         
+
+        <div class="row">
+            <div class="col-md-6"><?= $form->field($model, 'costo')->textInput(['placeholder' => '0.00']) ?></div>
+            <div class="col-md-6"><?= $form->field($model, 'costo_con_iva')->textInput(['placeholder' => '0.00']) ?></div>
+        </div>
+
         <div class="row">
             <div class="col-md-12"><?= $form->field($model, 'note')->textarea(['rows' => 6]) ?></div>
         </div>

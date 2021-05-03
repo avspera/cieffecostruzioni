@@ -14,8 +14,8 @@ use yii\widgets\ActiveForm;
 
     <div class="row">
         <div class="col-md-4"><?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?></div>
-        <div class="col-md-4"><?= $form->field($model, 'costo')->textInput(['maxlength' => true]) ?></div>
-        <div class="col-md-4"><?= $form->field($model, 'costo_con_iva')->textInput(['maxlength' => true]) ?></div>
+        <div class="col-md-4"><?= $form->field($model, 'costo')->textInput(['maxlength' => true, 'placeholder' => '0.00']) ?></div>
+        <div class="col-md-4"><?= $form->field($model, 'costo_con_iva')->textInput(['maxlength' => true, 'placeholder' => '0.00']) ?></div>
     </div>
 
     <div class="form-group">

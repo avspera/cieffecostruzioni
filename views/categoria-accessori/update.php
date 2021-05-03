@@ -14,6 +14,7 @@ $this->params['breadcrumbs'][] = 'Modifica';
 
     <div class="panel panel-success">
         <div class="panel-body">
+            <div class="alert alert-warning">Modificando il prezzo, si aggiorneranno in automatico tutti i prezzi degli accessori già consegnati</div>
             <?= $this->render('_form', [
                 'model' => $model,
             ]) ?>

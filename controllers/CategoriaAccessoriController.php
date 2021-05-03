@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\CategoriaAccessori;
+use app\models\Accessori;
 use app\models\CategoriaAccessoriSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -115,9 +116,26 @@ class CategoriaAccessoriController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $oldCosto = $model->costo;
+        $oldCostoConIva = $model->costo_con_iva;
+        
+        if ($model->load(Yii::$app->request->post())) {
+            /**
+             * updates each accessorio costo totale 
+             * based on new provided costo
+             */
+            if($model->costo && $model->costo_con_iva)
+            {
+                if($oldCosto != $model->costo || $oldCostoConIva != $model->costo_con_iva){
+                    $accessori = Accessori::findAll(["oggetto" => $model->id]);
+                    foreach($accessori as $accessorio){
+                        $accessorio->costo_totale = $model->costo_con_iva * $accessorio->quantita;
+                        $accessorio->save();
+                    }
+                }
+            } 
+            if($model->save())
+                return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
