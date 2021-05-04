@@ -96,4 +96,9 @@ class Tagliando extends \yii\db\ActiveRecord
     public function formatValue($value){
         return number_format($value, 2, ",", "."). " €";
     }
+
+    public function convertDate($value){
+        $tmp = explode("-", $value);
+        return $tmp !== false ?$tmp[2]."-".$tmp[1]."-".$tmp[0] : "";
+    }
 }

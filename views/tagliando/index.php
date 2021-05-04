@@ -53,13 +53,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'costo',
                 'value' => function($model){
                     return $model->formatValue($model->costo);
-                } 
+                },
+                'hAlign' => 'center', 
+                'vAlign' => 'middle',
             ],
             [
                 'attribute' => 'costo_con_iva',
                 'value' => function($model){
                     return $model->formatValue($model->costo_con_iva);
-                } 
+                },
+                'hAlign' => 'center', 
+                'vAlign' => 'middle',
             ],
             'note:ntext',
             [

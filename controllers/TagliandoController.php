@@ -98,8 +98,9 @@ class TagliandoController extends Controller
                 $model= $this->manageUploadFiles($model, $files, "allegati");
             }
 
-            $model->created = date("Y-m-d H:i:s");
-            
+            // $model->created = date("Y-m-d H:i:s");
+            $model->created = $model->convertDate($model->created);
+
             if($model->save())
                 return $this->redirect(['view', 'id' => $model->id]);
             else{

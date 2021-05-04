@@ -6,6 +6,7 @@ use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
 use yii\web\JsExpression;
 use kartik\file\FileInput;
+use yii\jui\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Tagliando */
@@ -57,8 +58,19 @@ use kartik\file\FileInput;
         
 
         <div class="row">
-            <div class="col-md-6"><?= $form->field($model, 'costo')->textInput(['placeholder' => '0.00']) ?></div>
-            <div class="col-md-6"><?= $form->field($model, 'costo_con_iva')->textInput(['placeholder' => '0.00']) ?></div>
+            <div class="col-md-4">
+                <?= $form->field($model, 'created')->widget(\yii\jui\DatePicker::classname(), [
+                    'language' => 'it',
+                    'dateFormat' => 'dd-MM-yyyy',
+                    'options' => [
+                        'class' => 'form-control',
+                        "autocomplete" => "off",
+                        'placehoder' => "Es. 10-02-2020"
+                    ],
+                ]) ?>
+            </div>
+            <div class="col-md-4"><?= $form->field($model, 'costo')->textInput(['placeholder' => '0.00']) ?></div>
+            <div class="col-md-4"><?= $form->field($model, 'costo_con_iva')->textInput(['placeholder' => '0.00']) ?></div>
         </div>
 
         <div class="row">
