@@ -127,7 +127,7 @@ class TagliandoController extends Controller
         if ($model->load(Yii::$app->request->post())) {
 
             $model->updated = date("Y-m-d H:i:s");
-            
+            $model->created = $model->convertDate($model->created);
              /**
              * check wheter files are uploaded
              */

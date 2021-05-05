@@ -27,7 +27,7 @@ use yii\widgets\ActiveForm;
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label>Nova password</label>
+                <label>Nuova password</label>
                 <input class="form-control" name="User[new_password]" type="password">
             </div>
         </div>

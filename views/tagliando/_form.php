@@ -18,6 +18,9 @@ use yii\jui\DatePicker;
     <div class="container-fluid">
         <?php $form = ActiveForm::begin(); ?>
 
+        <?php if(isset($update)): ?>
+            <div class="alert alert-info">Ultima modifica effettuata: <?= $model->formatDate($model->updated) ?></div>
+        <?php endif; ?>
         <div class="row">
             <?php 
                 if(!isset($update) && !$update){

@@ -27,7 +27,7 @@
                                 <?= Html::a($automezzo->marca." ".$automezzo->modello, Url::to(["automezzo/view", "id" => $automezzo->id]), ["class" => "product-title"]) ?>
                                 <span class="label label-warning pull-right"><?= $automezzo->formatDate($automezzo->$date)?></span></a>
                                 <span class="product-description"><?= $automezzo->targa ?></span>
-                                Ultimo tagliando: <span style="color:<?= $tagliando ? "green" : "red" ?>" ><?= $tagliando ? $automezzo->formatDate($tagliando->created) : "Mai eseguito" ?></span>
+                                Ultimo tagliando: <span style="color:<?= !empty($tagliando) ? "green" : "red" ?>" ><?= !empty($tagliando) ? $automezzo->formatDate($tagliando->created) : "Mai eseguito" ?></span>
                             </div>
                         </li>
                     <?php } ?>

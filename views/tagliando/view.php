@@ -76,6 +76,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         },
                         'format' => "raw"
                     ],
+                    [
+                        'attribute' => "updated",
+                        'value' => function($model){
+                            return !empty($model->updated) ? "<span style='color:red'>".$model->formatDate($model->updated)."</span>" : "-";
+                        },
+                        'format' => "raw"  
+                    ]
                 ],
             ]) ?>
         </div>

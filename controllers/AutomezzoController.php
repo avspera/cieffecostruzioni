@@ -154,8 +154,16 @@ class AutomezzoController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->data_immatricolazione = $model->convertDate($model->data_immatricolazione);
+            $model->data_ultimo_rinnovo_assicurazione = $model->convertDate($model->data_ultimo_rinnovo_assicurazione);
+            $model->data_scadenza_assicurazione = $model->convertDate($model->data_scadenza_assicurazione);
+            $model->data_ultima_revisione = $model->convertDate($model->data_ultima_revisione);
+            $model->data_prossima_revisione = $model->convertDate($model->data_prossima_revisione);
+            
+            if($model->save())
+                return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [

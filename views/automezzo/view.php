@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-        <?= Html::a('Torna indietro', ['index'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Vedi tutti', ['index'], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Aggiungi nuovo', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 

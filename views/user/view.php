@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]) ?>
                 <?= Html::a('Aggiungi nuovo', ['create'], ['class' => 'btn btn-success']) ?>
             <?php } ?>
-            <?= Html::a('Torna indietro', ['index'], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('Vedi tutti', ['index'], ['class' => 'btn btn-primary']) ?>
             
         </p>
 
@@ -41,6 +41,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => "role_id",
                     'value' => function($model){
                         return $model->getRole();
+                    }
+                ],
+                [
+                    'attribute' => "created",
+                    'value'=> function($model){
+                        return $model->formatDate($model->created);
                     }
                 ]
             ],
