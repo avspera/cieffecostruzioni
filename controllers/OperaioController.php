@@ -13,6 +13,7 @@ use yii\filters\VerbFilter;
 use app\extensions\FKUploadUtils; 
 use yii\helpers\FileHelper;
 use yii\web\UploadedFile;
+use yii\db\Query;
 
 /**
  * OperaioController implements the CRUD actions for Operaio model.
@@ -194,23 +195,47 @@ class OperaioController extends Controller
     /**
      * used in sessione/index search form
      */
-    public function actionSearch($q = null){
+    // public function actionSearch($q = null){
+    //     \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+    //     $out = ['results' => []];
+    //     if (!is_null($q)) {
+    //         $operai      = Operaio::find()->select(["id", "nome", "cognome"])->where(["like", "cognome", $q])->limit(20)->all();
+    //         $results        = [];
+    //         $i              = 0;
+    //         foreach($operai as $item){
+    //             $results[$i]["id"] = $item->id;
+    //             $results[$i]["text"] = $item->nome." ".$item->cognome;
+    //             $i++;
+    //         }
+    //     }
+    //     else if($id > 0){
+    //         $text = Operaio::findOne(["id" => $id]);
+    //         $out['results'] = ['id' => $id, 'text' => $text->nome." ".$text->cognome];
+    //     }
+    //     print_r($out);die;
+    //     return $out;  
+    // }
+
+    public function actionSearch($q = null, $id = null) {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $out = ['results' => []];
+        $out = ['results' => ['id' => '', 'text' => '']];
         if (!is_null($q)) {
-            $automezzi   = Operaio::find()->select(["id", "nome", "cognome"])->where(["like", "cognome", $q])->limit(20)->all();
-            $results    = [];
-            foreach($automezzi as $item){
-                $results["id"] = $item->id;
-                $results["text"] = $item->nome." ".$item->cognome;     
-            }
-            $out['results'][] = $results;
+            // $query->select('id AS id, CONCAT(nome, cognome) AS text')
+            //     ->from('operaio')
+            //     ->where(['like', 'cognome', $q])
+            //     ->limit(20);
+                
+            $data = Yii::$app->db->createCommand("SELECT `id` AS id, CONCAT(`nome`, ' ', `cognome`) as text FROM `operaio` WHERE `cognome` LIKE '%{$q}%' LIMIT 20")->queryAll();
+            
+            $out['results'] = array_values($data);
         }
         else if($id > 0){
-            $text = Operaio::findOne(["id" => $id]);
-            $out['results'] = ['id' => $id, 'text' => $text->nome." ".$text->cognome];
+            $operaio    = Operaio::find()->select(["nome", "cognome"])->where(["id" => $id])->one();
+            $text       = !empty($operaio) ? $operaio->nome." ".$operaio->cognome : "";
+            $out['results'] = ['id' => $id, 'text' => $text];
         }
-        return $out;  
+        
+        return $out;
     }
 
     /**

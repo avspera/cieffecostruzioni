@@ -65,8 +65,8 @@ use yii\web\JsExpression;
                     ]
                 ])->label("Data di consegna") ?>
             </div>
-            <div class="col-md-4"><?= $form->field($model, 'quantita')->textInput(['maxlength' => true, 'type' => "number", "onchange" => "calculateCostoTotale()"]) ?></div>
-            <div class="col-md-4"><?= $form->field($model, 'costo_totale')->textInput(['maxlength' => true, 'readonly' => true]) ?></div>
+            <div class="col-md-4"><?= $form->field($model, 'quantita')->textInput(['maxlength' => true, 'type' => "number"]) ?></div>
+            <div class="col-md-4"><?= $form->field($model, 'costo_totale')->textInput(['maxlength' => true]) ?></div>
         </div>
 
         <div class="row">
@@ -82,31 +82,31 @@ use yii\web\JsExpression;
 </div>
 
 <script>
-    function getCostoSingolo(){
-        let oggetto = $('#accessori-oggetto option:selected').val();
+    // function getCostoSingolo(){
+    //     let oggetto = $('#accessori-oggetto option:selected').val();
         
-        $.ajax({
-            dataType: 'json',
-            url: '<?= Url::to(["categoria-accessori/get-costo-singolo"]) ?>',
-            method: 'post',
-            data: {
-                oggetto: oggetto 
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(errorThrown);
-            },
-            success: function (data) {
-                if(data.status == "200")
-                    $("#accessori-costo_totale").val(data.costo_singolo);
-            }
-        });
-    }
+    //     $.ajax({
+    //         dataType: 'json',
+    //         url: '<?= Url::to(["categoria-accessori/get-costo-singolo"]) ?>',
+    //         method: 'post',
+    //         data: {
+    //             oggetto: oggetto 
+    //         },
+    //         error: function (jqXHR, textStatus, errorThrown) {
+    //             console.log(errorThrown);
+    //         },
+    //         success: function (data) {
+    //             if(data.status == "200")
+    //                 $("#accessori-costo_totale").val(data.costo_singolo);
+    //         }
+    //     });
+    // }
 
-    function calculateCostoTotale(){
-        let quantita = $('#accessori-quantita').val();
-        let costo_singolo = $("#accessori-costo_totale").val();
-        let costo_totale = quantita*costo_singolo;
-        console.log(costo_totale);
-        $("#accessori-costo_totale").val(costo_totale);
-    }
+    // function calculateCostoTotale(){
+    //     let quantita = $('#accessori-quantita').val();
+    //     let costo_singolo = $("#accessori-costo_totale").val();
+    //     let costo_totale = quantita*costo_singolo;
+    //     console.log(costo_totale);
+    //     $("#accessori-costo_totale").val(costo_totale);
+    // }
 </script>

@@ -59,7 +59,7 @@ class TagliandoController extends Controller
     {
         $searchModel = new TagliandoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $dataProvider->sort->defaultOrder = ["created" => SORT_DESC];
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
