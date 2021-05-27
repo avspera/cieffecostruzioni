@@ -68,6 +68,16 @@ class Tagliando extends \yii\db\ActiveRecord
         return $this->hasOne(Automezzo::className(), ['id' => 'id_automezzo']);
     }
 
+    public function getListaAutomezzi(){
+        $automezzi = Automezzo::find()->select(["id", "marca", "modello", "targa"])->orderBy(["marca" => SORT_ASC])->all();
+        $out = [];
+        $i = 0;
+        foreach($automezzi as $automezzo){
+            $out[$automezzo->id] = $automezzo->marca." ".$automezzo->modello." - ".$automezzo->targa;
+        }
+        return $out;
+    }
+
     public function formatDate($value, $showHour = false){
         $format = "d/m/Y";
         if($showHour)

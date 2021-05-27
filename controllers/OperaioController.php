@@ -191,31 +191,6 @@ class OperaioController extends Controller
         ]);
     }
 
-
-    /**
-     * used in sessione/index search form
-     */
-    // public function actionSearch($q = null){
-    //     \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-    //     $out = ['results' => []];
-    //     if (!is_null($q)) {
-    //         $operai      = Operaio::find()->select(["id", "nome", "cognome"])->where(["like", "cognome", $q])->limit(20)->all();
-    //         $results        = [];
-    //         $i              = 0;
-    //         foreach($operai as $item){
-    //             $results[$i]["id"] = $item->id;
-    //             $results[$i]["text"] = $item->nome." ".$item->cognome;
-    //             $i++;
-    //         }
-    //     }
-    //     else if($id > 0){
-    //         $text = Operaio::findOne(["id" => $id]);
-    //         $out['results'] = ['id' => $id, 'text' => $text->nome." ".$text->cognome];
-    //     }
-    //     print_r($out);die;
-    //     return $out;  
-    // }
-
     public function actionSearch($q = null, $id = null) {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $out = ['results' => ['id' => '', 'text' => '']];

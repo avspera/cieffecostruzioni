@@ -22,9 +22,10 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'id_automezzo',
                 'value' => function($model){
-                    return !empty($model->automezzo) ? Html::a($model->automezzo->modello." - ".$model->automezzo->targa, Url::to(["automezzo/view", "id" => $model->automezzo->id])) : "<p style='color=red'>Mezzo non trovato</p>";
+                    return !empty($model->automezzo) ? Html::a($model->automezzo->marca." ".$model->automezzo->modello." - ".$model->automezzo->targa, Url::to(["automezzo/view", "id" => $model->automezzo->id])) : "<p style='color=red'>Mezzo non trovato</p>";
                 },
-                'format' => "raw"
+                'format' => "raw",
+                'filter' => $searchModel->getListaAutomezzi()
             ],
             [
                 'attribute' => 'created',

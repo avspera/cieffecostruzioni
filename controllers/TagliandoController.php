@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Tagliando;
+use app\models\Automezzo;
 use app\models\TagliandoSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -60,6 +61,7 @@ class TagliandoController extends Controller
         $searchModel = new TagliandoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->sort->defaultOrder = ["created" => SORT_DESC];
+        
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

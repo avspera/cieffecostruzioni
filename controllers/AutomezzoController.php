@@ -84,13 +84,15 @@ class AutomezzoController extends Controller
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $out = ['results' => []];
         if (!is_null($q)) {
-            $automezzi   = Automezzo::find()->select(["id", "modello", "targa"])->where(["like", "targa", $q])->limit(20)->all();
+            $automezzi   = Automezzo::find()->select(["id","marca", "modello", "targa"])->where(["like", "targa", $q])->limit(10)->all();
             $results    = [];
+            $i = 0;
             foreach($automezzi as $item){
-                $results["id"] = $item->id;
-                $results["text"] = $item->modello." - ".$item->targa;     
+                $results[$i]["id"] = $item->id;
+                $results[$i]["text"] = $item->marca." ".$item->modello." - ".$item->targa;    
+                $i++; 
             }
-            $out['results'][] = $results;
+            $out['results'] = $results;
         }
         else if($id > 0){
             $out['results'] = ['id' => $id, 'text' => Automezzo::find($id)->modello];
